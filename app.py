@@ -32,19 +32,38 @@ def thankyou():
 @app.route("/api/attractions", methods=["GET"])
 def api_attr():
 	page=request.args.get("page")
-	ender=int(page)+11
-	# keyword=request.args.get("keyword")
-	with connection.cursor(pymysql.cursors.DictCursor) as cursor:
-		got=cursor.execute("""SELECT id,name,category2,description,address,transport,mrt,latitude,longitude,images FROM sites WHERE id>=%s AND id<=%s""",(page,ender))
-		result=cursor.fetchall()
-		connection.commit()
-		if got != 0:
-			summary=[]
-			for site in result:
-				sets={"nextPage":int(page)+1,"data":[{"id":site["id"],"name":site["name"],"category":site["category2"],"description":site["description"],"address":site["address"],"transport":site["transport"],"mrt":site["mrt"],"latitude":site["latitude"],"longitude":site["longitude"],"images":site["images"]}]}
-				summary.append(sets)
-			return jsonify(summary)
-		return jsonify({"error":True,"message":"查無資料"})
+	keyword=request.args.get("keyword")
+	print("現況",keyword)
+	if keyword!=None:
+		page=int(page)//12
+		ender=page+12
+		print(page,ender)
+		with connection.cursor(pymysql.cursors.DictCursor) as cursor:
+			got=cursor.execute("""SELECT id,name,category2,description,address,transport,mrt,latitude,longitude,images FROM sites WHERE name like %s LIMIT %s,%s """,(("%"+keyword+"%"),page,ender))
+			result=cursor.fetchall()
+			connection.commit()
+			if got != 0:
+				summary=[]
+				for site in result:
+					sets={"nextPage":int(page)+1,"data":[{"id":site["id"],"name":site["name"],"category":site["category2"],"description":site["description"],"address":site["address"],"transport":site["transport"],"mrt":site["mrt"],"latitude":site["latitude"],"longitude":site["longitude"],"images":site["images"]}]}
+					summary.append(sets)
+				return jsonify(summary)
+			return jsonify({"error":True,"message":"查無資料"})
+	else:
+		ender=int(page)+11
+		with connection.cursor(pymysql.cursors.DictCursor) as cursor:
+			got=cursor.execute("""SELECT id,name,category2,description,address,transport,mrt,latitude,longitude,images FROM sites WHERE id>=%s AND id<=%s """,(page,ender))
+			result=cursor.fetchall()
+			connection.commit()
+			if got != 0:
+				summary=[]
+				for site in result:
+					sets={"nextPage":int(page)+1,"data":[{"id":site["id"],"name":site["name"],"category":site["category2"],"description":site["description"],"address":site["address"],"transport":site["transport"],"mrt":site["mrt"],"latitude":site["latitude"],"longitude":site["longitude"],"images":site["images"]}]}
+					summary.append(sets)
+				return jsonify(summary)
+			return jsonify({"error":True,"message":"查無資料"})
+		
+		
 
 @app.route("/api/attraction/<attractionId>", methods=["GET"])
 def api_atid(attractionId):
