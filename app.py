@@ -50,7 +50,9 @@ def api_attr():
 				return jsonify(summary)
 			return jsonify({"error":True,"message":"查無資料"})
 	else:
-		ender=int(page)+11
+		#page1 ender 12,page2->13 ender 24, page3->25 ender 36, 
+		ender=int(page)*12
+		page=ender-11
 		with connection.cursor(pymysql.cursors.DictCursor) as cursor:
 			got=cursor.execute("""SELECT id,name,category2,description,address,transport,mrt,latitude,longitude,images FROM sites WHERE id>=%s AND id<=%s """,(page,ender))
 			result=cursor.fetchall()
