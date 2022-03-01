@@ -91,10 +91,10 @@ def api_atid(attractionId):
 		got=cursor.execute("""SELECT id,name,category2,description,address,transport,mrt,latitude,longitude,images FROM sites WHERE id=%s""",(attractionId))
 		site=cursor.fetchone()
 		connection.commit()
-		site["images"]=ast.literal_eval(site["images"])
 		if got!=0:
 			summary={"data":{"id":site["id"],"name":site["name"],"category":site["category2"],"description":site["description"],"address":site["address"],"transport":site["transport"],"mrt":site["mrt"],"latitude":site["latitude"],"longitude":site["longitude"],"images":site["images"]}}
-			# print(type((summary["data"]["images"])))
+			# summary[0]["data"][0]["images"]=ast.literal_eval(summary[0]["data"][0]["images"])
+			summary["data"]["images"]=ast.literal_eval(summary["data"]["images"])
 			return jsonify(summary)
 		return jsonify({"error":True,"message":"查無資料"})
 
