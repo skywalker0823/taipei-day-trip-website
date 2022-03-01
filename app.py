@@ -60,7 +60,7 @@ def api_attr():
 			if got != 0:
 				summary=[]
 				for site in result:
-					sets={"nextPage":int(page)+1,"data":[{"id":site["id"],"name":site["name"],"category":site["category2"],"description":site["description"],"address":site["address"],"transport":site["transport"],"mrt":site["mrt"],"latitude":site["latitude"],"longitude":site["longitude"],"images":site["images"]}]}
+					sets={"nextPage":int(ender)//12+1,"data":[{"id":site["id"],"name":site["name"],"category":site["category2"],"description":site["description"],"address":site["address"],"transport":site["transport"],"mrt":site["mrt"],"latitude":site["latitude"],"longitude":site["longitude"],"images":site["images"]}]}
 					summary.append(sets)
 				return jsonify(summary)
 			return jsonify({"error":True,"message":"查無資料"})
