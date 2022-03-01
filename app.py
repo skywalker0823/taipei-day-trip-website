@@ -56,7 +56,8 @@ def api_attr():
 				return jsonify(summary)
 			return jsonify({"error":True,"message":"查無資料"})
 	else:
-		#如果資料小魚12 下一頁null
+		if page==None:
+			page=0
 		ender=(int(page)+1)*12
 		page=ender-11
 		with connection.cursor(pymysql.cursors.DictCursor) as cursor:
