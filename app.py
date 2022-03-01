@@ -48,15 +48,19 @@ def api_attr():
 				summary=[]
 				if count<12:
 					for site in result:
-						sets={"nextPage":None,"data":[{"id":site["id"],"name":site["name"],"category":site["category2"],"description":site["description"],"address":site["address"],"transport":site["transport"],"mrt":site["mrt"],"latitude":site["latitude"],"longitude":site["longitude"],"images":site["images"]}]}
-						summary.append(sets)
-					summary[0]["data"][0]["images"]=ast.literal_eval(summary[0]["data"][0]["images"])
-					return jsonify(summary)
+						a_set={"id":site["id"],"name":site["name"],"category":site["category2"],"description":site["description"],"address":site["address"],"transport":site["transport"],"mrt":site["mrt"],"latitude":site["latitude"],"longitude":site["longitude"],"images":site["images"]}
+						a_set["images"]=ast.literal_eval(a_set["images"])
+						summary.append(a_set)
+					# summary[0]["data"][0]["images"]=ast.literal_eval(summary[0]["data"][0]["images"])
+					final={"nextPage":None,"data":summary}
+					return jsonify(final)
 				for site in result:
-					sets={"nextPage":int(ender)//12+1,"data":[{"id":site["id"],"name":site["name"],"category":site["category2"],"description":site["description"],"address":site["address"],"transport":site["transport"],"mrt":site["mrt"],"latitude":site["latitude"],"longitude":site["longitude"],"images":site["images"]}]}
-					summary.append(sets)
-				summary[0]["data"][0]["images"]=ast.literal_eval(summary[0]["data"][0]["images"])
-				return jsonify(summary)
+					a_set={"id":site["id"],"name":site["name"],"category":site["category2"],"description":site["description"],"address":site["address"],"transport":site["transport"],"mrt":site["mrt"],"latitude":site["latitude"],"longitude":site["longitude"],"images":site["images"]}
+					a_set["images"]=ast.literal_eval(a_set["images"])
+					summary.append(a_set)
+				# summary[0]["data"][0]["images"]=ast.literal_eval(summary[0]["data"][0]["images"])
+				final={"nextPage":int(ender)//12+1,"data":summary}
+				return jsonify(final)
 			return jsonify({"error":True,"message":"查無資料"})
 	else:
 		if page==None:
@@ -72,15 +76,21 @@ def api_attr():
 				summary=[]
 				if count<12:
 					for site in result:
-						sets={"nextPage":None,"data":[{"id":site["id"],"name":site["name"],"category":site["category2"],"description":site["description"],"address":site["address"],"transport":site["transport"],"mrt":site["mrt"],"latitude":site["latitude"],"longitude":site["longitude"],"images":site["images"]}]}
-						summary.append(sets)
-					summary[0]["data"][0]["images"]=ast.literal_eval(summary[0]["data"][0]["images"])
-					return jsonify(summary)
+						a_set={"id":site["id"],"name":site["name"],"category":site["category2"],"description":site["description"],"address":site["address"],"transport":site["transport"],"mrt":site["mrt"],"latitude":site["latitude"],"longitude":site["longitude"],"images":site["images"]}
+						a_set["images"]=ast.literal_eval(a_set["images"])
+						summary.append(a_set)
+						print(summary)
+					# summary[0]["data"][0]["images"]=ast.literal_eval(summary[0]["data"][0]["images"])
+					final={"nextPage":None,"data":summary}
+					return jsonify(final)
 				for site in result:
-					sets={"nextPage":int(ender)//12,"data":[{"id":site["id"],"name":site["name"],"category":site["category2"],"description":site["description"],"address":site["address"],"transport":site["transport"],"mrt":site["mrt"],"latitude":site["latitude"],"longitude":site["longitude"],"images":site["images"]}]}
-					summary.append(sets)
-				summary[0]["data"][0]["images"]=ast.literal_eval(summary[0]["data"][0]["images"])
-				return jsonify(summary)
+					a_set={"id":site["id"],"name":site["name"],"category":site["category2"],"description":site["description"],"address":site["address"],"transport":site["transport"],"mrt":site["mrt"],"latitude":site["latitude"],"longitude":site["longitude"],"images":site["images"]}
+					a_set["images"]=ast.literal_eval(a_set["images"])
+					summary.append(a_set)
+					# summary[0]["data"][0]["images"]=ast.literal_eval(summary[0]["data"][0]["images"])
+
+				final={"nextPage":int(ender)//12,"data":summary}
+				return jsonify(final)
 			return jsonify({"error":True,"message":"查無資料"})
 		
 		
