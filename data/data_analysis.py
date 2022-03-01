@@ -29,8 +29,8 @@ def build(conn):
 def insert_data(conn):
             with conn.cursor() as cursor:
                 sites=datas_json["result"]["results"]
-                images=[]
                 for site in sites:
+                    images=[]
                     pics=site["file"].lower().split("jpg")
                     name=site["stitle"]
                     cat1=site["CAT1"]

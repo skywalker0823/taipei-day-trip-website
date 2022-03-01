@@ -50,15 +50,22 @@ def api_attr():
 				return jsonify(summary)
 			return jsonify({"error":True,"message":"查無資料"})
 	else:
-		#page1 ender 12,page2->13 ender 24, page3->25 ender 36, 
+		#如果資料小魚12 下一頁null
 		ender=int(page)*12
 		page=ender-11
 		with connection.cursor(pymysql.cursors.DictCursor) as cursor:
 			got=cursor.execute("""SELECT id,name,category2,description,address,transport,mrt,latitude,longitude,images FROM sites WHERE id>=%s AND id<=%s """,(page,ender))
 			result=cursor.fetchall()
+			count=cursor.rowcount
+			print("這裏拉",count)
 			connection.commit()
 			if got != 0:
 				summary=[]
+				if count<12:
+					for site in result:
+						sets={"nextPage":None,"data":[{"id":site["id"],"name":site["name"],"category":site["category2"],"description":site["description"],"address":site["address"],"transport":site["transport"],"mrt":site["mrt"],"latitude":site["latitude"],"longitude":site["longitude"],"images":site["images"]}]}
+						summary.append(sets)
+					return jsonify(summary)
 				for site in result:
 					sets={"nextPage":int(ender)//12+1,"data":[{"id":site["id"],"name":site["name"],"category":site["category2"],"description":site["description"],"address":site["address"],"transport":site["transport"],"mrt":site["mrt"],"latitude":site["latitude"],"longitude":site["longitude"],"images":site["images"]}]}
 					summary.append(sets)
