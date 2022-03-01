@@ -33,11 +33,10 @@ def thankyou():
 def api_attr():
 	page=request.args.get("page")
 	keyword=request.args.get("keyword")
-	print("現況",keyword)
 	if keyword!=None:
-		page=int(page)//12
-		ender=page+12
-		print(page,ender)
+		ender=(int(page)+1)*12
+		page=ender-12
+		print("here",page,ender)
 		with connection.cursor(pymysql.cursors.DictCursor) as cursor:
 			got=cursor.execute("""SELECT id,name,category2,description,address,transport,mrt,latitude,longitude,images FROM sites WHERE name like %s LIMIT %s,%s """,(("%"+keyword+"%"),page,ender))
 			result=cursor.fetchall()
@@ -51,7 +50,7 @@ def api_attr():
 						summary.append(sets)
 					return jsonify(summary)
 				for site in result:
-					sets={"nextPage":int(page)+1,"data":[{"id":site["id"],"name":site["name"],"category":site["category2"],"description":site["description"],"address":site["address"],"transport":site["transport"],"mrt":site["mrt"],"latitude":site["latitude"],"longitude":site["longitude"],"images":site["images"]}]}
+					sets={"nextPage":int(ender)//12+1,"data":[{"id":site["id"],"name":site["name"],"category":site["category2"],"description":site["description"],"address":site["address"],"transport":site["transport"],"mrt":site["mrt"],"latitude":site["latitude"],"longitude":site["longitude"],"images":site["images"]}]}
 					summary.append(sets)
 				return jsonify(summary)
 			return jsonify({"error":True,"message":"查無資料"})
