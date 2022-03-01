@@ -1,11 +1,11 @@
 from crypt import methods
 from unicodedata import category
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 from flask import *
 import pymysql
 import os
-load_dotenv()
-connection=pymysql.connect(charset='utf8',db='website',host='127.0.0.1',password=os.getenv("DB_PASS"),port=3306,user='root')
+# load_dotenv()
+connection=pymysql.connect(charset='utf8',db='website',host='127.0.0.1',password="",port=3306,user='root')
 
 
 app=Flask(__name__)
