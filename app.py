@@ -41,9 +41,15 @@ def api_attr():
 		with connection.cursor(pymysql.cursors.DictCursor) as cursor:
 			got=cursor.execute("""SELECT id,name,category2,description,address,transport,mrt,latitude,longitude,images FROM sites WHERE name like %s LIMIT %s,%s """,(("%"+keyword+"%"),page,ender))
 			result=cursor.fetchall()
+			count=cursor.rowcount
 			connection.commit()
 			if got != 0:
 				summary=[]
+				if count<12:
+					for site in result:
+						sets={"nextPage":None,"data":[{"id":site["id"],"name":site["name"],"category":site["category2"],"description":site["description"],"address":site["address"],"transport":site["transport"],"mrt":site["mrt"],"latitude":site["latitude"],"longitude":site["longitude"],"images":site["images"]}]}
+						summary.append(sets)
+					return jsonify(summary)
 				for site in result:
 					sets={"nextPage":int(page)+1,"data":[{"id":site["id"],"name":site["name"],"category":site["category2"],"description":site["description"],"address":site["address"],"transport":site["transport"],"mrt":site["mrt"],"latitude":site["latitude"],"longitude":site["longitude"],"images":site["images"]}]}
 					summary.append(sets)
@@ -57,7 +63,6 @@ def api_attr():
 			got=cursor.execute("""SELECT id,name,category2,description,address,transport,mrt,latitude,longitude,images FROM sites WHERE id>=%s AND id<=%s """,(page,ender))
 			result=cursor.fetchall()
 			count=cursor.rowcount
-			print("這裏拉",count)
 			connection.commit()
 			if got != 0:
 				summary=[]
