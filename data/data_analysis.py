@@ -61,7 +61,9 @@ def insert_data(conn):
                                 )
                         VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",(name,cat1,cat2,des,add,trans,mrt,lati,longi,str(images)))
                     conn.commit()
-                    print("完成 新增: ",result,"筆資料")
+                    print("完成 新增: ",result,"筆資料",images)
+
+
 
 if __name__=="__main__":
     load_dotenv()

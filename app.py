@@ -4,6 +4,7 @@ from unicodedata import category
 from flask import *
 import pymysql
 import os
+import ast
 # load_dotenv()
 connection=pymysql.connect(charset='utf8',db='website',host='127.0.0.1',password="",port=3306,user='root')
 
@@ -11,6 +12,7 @@ connection=pymysql.connect(charset='utf8',db='website',host='127.0.0.1',password
 app=Flask(__name__)
 app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
+app.config['JSON_SORT_KEYS'] = False
 # app.secret_key=os.getenv("SECRET_KEY")
 
 
@@ -48,10 +50,12 @@ def api_attr():
 					for site in result:
 						sets={"nextPage":None,"data":[{"id":site["id"],"name":site["name"],"category":site["category2"],"description":site["description"],"address":site["address"],"transport":site["transport"],"mrt":site["mrt"],"latitude":site["latitude"],"longitude":site["longitude"],"images":site["images"]}]}
 						summary.append(sets)
+					summary[0]["data"][0]["images"]=ast.literal_eval(summary[0]["data"][0]["images"])
 					return jsonify(summary)
 				for site in result:
 					sets={"nextPage":int(ender)//12+1,"data":[{"id":site["id"],"name":site["name"],"category":site["category2"],"description":site["description"],"address":site["address"],"transport":site["transport"],"mrt":site["mrt"],"latitude":site["latitude"],"longitude":site["longitude"],"images":site["images"]}]}
 					summary.append(sets)
+				summary[0]["data"][0]["images"]=ast.literal_eval(summary[0]["data"][0]["images"])
 				return jsonify(summary)
 			return jsonify({"error":True,"message":"查無資料"})
 	else:
@@ -70,10 +74,12 @@ def api_attr():
 					for site in result:
 						sets={"nextPage":None,"data":[{"id":site["id"],"name":site["name"],"category":site["category2"],"description":site["description"],"address":site["address"],"transport":site["transport"],"mrt":site["mrt"],"latitude":site["latitude"],"longitude":site["longitude"],"images":site["images"]}]}
 						summary.append(sets)
+					summary[0]["data"][0]["images"]=ast.literal_eval(summary[0]["data"][0]["images"])
 					return jsonify(summary)
 				for site in result:
 					sets={"nextPage":int(ender)//12+1,"data":[{"id":site["id"],"name":site["name"],"category":site["category2"],"description":site["description"],"address":site["address"],"transport":site["transport"],"mrt":site["mrt"],"latitude":site["latitude"],"longitude":site["longitude"],"images":site["images"]}]}
 					summary.append(sets)
+				summary[0]["data"][0]["images"]=ast.literal_eval(summary[0]["data"][0]["images"])
 				return jsonify(summary)
 			return jsonify({"error":True,"message":"查無資料"})
 		
@@ -85,8 +91,10 @@ def api_atid(attractionId):
 		got=cursor.execute("""SELECT id,name,category2,description,address,transport,mrt,latitude,longitude,images FROM sites WHERE id=%s""",(attractionId))
 		site=cursor.fetchone()
 		connection.commit()
+		site["images"]=ast.literal_eval(site["images"])
 		if got!=0:
 			summary={"data":{"id":site["id"],"name":site["name"],"category":site["category2"],"description":site["description"],"address":site["address"],"transport":site["transport"],"mrt":site["mrt"],"latitude":site["latitude"],"longitude":site["longitude"],"images":site["images"]}}
+			# print(type((summary["data"]["images"])))
 			return jsonify(summary)
 		return jsonify({"error":True,"message":"查無資料"})
 
