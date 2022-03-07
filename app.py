@@ -5,11 +5,14 @@ from flask import *
 import pymysql
 import os
 import ast
+from flask import render_template as rt
 # load_dotenv()
 connection=pymysql.connect(charset='utf8',db='website',host='127.0.0.1',password="",port=3306,user='root')
 
 
-app=Flask(__name__)
+app=Flask(__name__,
+static_folder="public",
+static_url_path="/")
 app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
 app.config['JSON_SORT_KEYS'] = False
@@ -19,7 +22,7 @@ app.config['JSON_SORT_KEYS'] = False
 # Pages
 @app.route("/")
 def index():
-	return render_template("index.html")
+	return rt("index.html")
 @app.route("/attraction/<id>")
 def attraction(id):
 	return render_template("attraction.html")
@@ -38,7 +41,6 @@ def api_attr():
 	if keyword!=None:
 		ender=(int(page)+1)*12
 		page=ender-12
-		print("here",page,ender)
 		with connection.cursor(pymysql.cursors.DictCursor) as cursor:
 			got=cursor.execute("""SELECT id,name,category2,description,address,transport,mrt,latitude,longitude,images FROM sites WHERE name like %s LIMIT %s,%s """,(("%"+keyword+"%"),page,ender))
 			result=cursor.fetchall()
@@ -79,7 +81,6 @@ def api_attr():
 						a_set={"id":site["id"],"name":site["name"],"category":site["category2"],"description":site["description"],"address":site["address"],"transport":site["transport"],"mrt":site["mrt"],"latitude":site["latitude"],"longitude":site["longitude"],"images":site["images"]}
 						a_set["images"]=ast.literal_eval(a_set["images"])
 						summary.append(a_set)
-						print(summary)
 					# summary[0]["data"][0]["images"]=ast.literal_eval(summary[0]["data"][0]["images"])
 					final={"nextPage":None,"data":summary}
 					return jsonify(final)

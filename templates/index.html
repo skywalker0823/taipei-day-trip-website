@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css"/>
+
+    <title>My Website</title>
+</head>
+<body onload="site_in()">
+    <nav class="nav">
+        <div class="innr_nav">
+        <a href="#" class="home_title">台北一日遊</a>
+    <!-- <button type="button" id="burger" onclick="burger_list()"><img class="burg_img" style="width: 25px;" src="./imgs/2561466_menu_icon.png" ></button> -->
+            <div class="frame2">
+                <div class="frame1">
+                    <a href="#" class="b_b"><p class="bb">預定行程</p></a>
+                    <a href="#" class="b_b"><p class="bb">登入/註冊</p></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="hero">
+        <div class="true_hero">
+            <div class="slogan">
+                <div class="slg_div">
+                    <div class="slg_innr">
+                        <p class="sl_2">輕鬆享受台北一日悠閒</p>
+                        <p class="sl_1">探索每個角落，體驗城市的深度旅遊行程</p>
+                    </div>
+                    <div class="srh">
+                        <div class="srh_innr">
+                            <input type="search" class="srh_bar" id="s_bar"></input>
+                            <input type="button" class="srh_btn" onclick="search()"></input>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="welc">
+                <img src="welcome.png">
+            </div>
+        </div>
+    </div>
+    <section class="sec1">
+        <div class="flex" id="pic_in"></div>
+    </section>
+        <!-- <div style="display: flex;justify-content: center;">
+            <button id="page" onclick="more(this.id)">more</button>
+        </div> -->
+    <script type="text/javascript" src="script.js"></script>
+</body>
+</html>
