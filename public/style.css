@@ -164,7 +164,7 @@ body{
 .flex{
     display: flex;
     flex-wrap: wrap;
-    width: 1200px;
+    width: 1220px;
     margin: 0 auto;
     margin-top: 50px;
     justify-content: center;
@@ -179,7 +179,7 @@ img{
 }
 .box{
     object-fit:cover;
-    width: 268px;
+    width: 273px;
     margin: 15px;
     max-height: 255px;
     display: flex;
