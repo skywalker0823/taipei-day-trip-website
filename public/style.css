@@ -164,7 +164,7 @@ body{
 .flex{
     display: flex;
     flex-wrap: wrap;
-    width: 1220px;
+    width: 1200px;
     margin: 0 auto;
     margin-top: 50px;
     justify-content: center;
@@ -180,7 +180,7 @@ img{
 .box{
     object-fit:cover;
     width: 273px;
-    margin: 15px;
+    margin: 12px;
     max-height: 255px;
     display: flex;
     flex-direction: column;
@@ -220,7 +220,7 @@ img{
 .sec1{
     display: flex;
 }
-@media (min-width:600px) and (max-width:1200px){/*600~1200px*/
+@media (min-width:600px) and (max-width:1199px){/*600~1200px*/
     .flex{max-width: 100%;}
     .box{width: 44%;}
 }
