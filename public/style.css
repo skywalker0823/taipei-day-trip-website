@@ -153,7 +153,10 @@ body{
     background-position-x: center;
     background-position-y: center;
 }
-
+.frame2{
+    position: relative;
+    right: 5px;
+}
 
 
 
@@ -176,9 +179,8 @@ img{
 }
 .box{
     object-fit:cover;
-    width: 285px;
-    margin: 5px;
-    margin-bottom: 15px;
+    width: 268px;
+    margin: 15px;
     max-height: 255px;
     display: flex;
     flex-direction: column;
@@ -220,7 +222,7 @@ img{
 }
 @media (min-width:600px) and (max-width:1200px){/*600~1200px*/
     .flex{max-width: 100%;}
-    .box{width: 45%;}
+    .box{width: 44%;}
 }
 
 /* @media (min-width:361px) and (max-width:600px) {
