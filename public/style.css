@@ -191,7 +191,7 @@ img{
     font-weight: bold;
     font-size: 16px;
     color: #757575;
-    padding: 10px;
+    padding: 8px;
 
 }
 .infos{
@@ -250,6 +250,7 @@ img{
         top: 226px;}
     .srh_bar{width: 70%;}
     .sec1{margin-top: -150px;}
+    .home_title{margin: 5px;}
 }
 
 .foot{
