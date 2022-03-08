@@ -1,0 +1,14 @@
+@media (min-width:600px) and (max-width:1200px){/*600~1200px*/
+    .flex{max-width: 90%;}
+    .box{width: 45%;}
+}
+@media screen and (max-width:600px) {/*less than 600*/
+    .flex{max-width: 90%;}
+    .box{width: 100%;}
+    .title{font-size: 32px;}
+    .hide{display: none;}
+    #burger{display: block;}
+    #menu_outer{width:100% ;margin-top: 5px;}
+    .menu{justify-content: space-around;}
+    .menu a{text-align: center;margin-left: 0px;}
+}
