@@ -38,9 +38,10 @@ def thankyou():
 def api_attr():
 	page=request.args.get("page")
 	keyword=request.args.get("keyword")
-	if keyword!=None:
+	if keyword!=None and keyword != "":
 		ender=(int(page)+1)*12
 		page=ender-12
+		print(1,page,ender)
 		with connection.cursor(pymysql.cursors.DictCursor) as cursor:
 			got=cursor.execute("""SELECT id,name,category2,description,address,transport,mrt,latitude,longitude,images FROM sites WHERE name like %s LIMIT %s,%s """,(("%"+keyword+"%"),page,ender))
 			result=cursor.fetchall()
@@ -61,7 +62,7 @@ def api_attr():
 					a_set["images"]=ast.literal_eval(a_set["images"])
 					summary.append(a_set)
 				# summary[0]["data"][0]["images"]=ast.literal_eval(summary[0]["data"][0]["images"])
-				final={"nextPage":int(ender)//12+1,"data":summary}
+				final={"nextPage":int(ender)//12,"data":summary}
 				return jsonify(final)
 			return jsonify({"error":True,"message":"查無資料"})
 	else:
@@ -69,6 +70,7 @@ def api_attr():
 			page=0
 		ender=(int(page)+1)*12
 		page=ender-11
+		print(2,page,ender)
 		with connection.cursor(pymysql.cursors.DictCursor) as cursor:
 			got=cursor.execute("""SELECT id,name,category2,description,address,transport,mrt,latitude,longitude,images FROM sites WHERE id>=%s AND id<=%s """,(page,ender))
 			result=cursor.fetchall()

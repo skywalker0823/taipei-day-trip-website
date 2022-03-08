@@ -58,18 +58,19 @@ function site_in(){
 
 
 function more(id="page="+next){
-  console.log("這一頁",next)
+  console.log(next)
+  keyw=document.getElementById("s_bar").value
   if(next==null){
     return null
   }
-  fetch('/api/attractions?'+id)
+  if(keyw != null){keywords="&"+"keyword="+keyw}
+  fetch('/api/attractions?'+id+keywords)
   .then(function(response) {
     return response.json();
   })
   .then(function(datas){
     next=datas.nextPage
     let data=datas.data;//這裡是景點12陣列
-    console.log("下一頁:",next);
     // document.getElementById(id).id="page="+next;
     for(site of data){
       // console.log(site["name"],site["images"][0],site["mrt"],site["category"])
@@ -112,9 +113,6 @@ function more(id="page="+next){
       pic_in.appendChild(box).appendChild(name_here).appendChild(site_name);
       pic_in.appendChild(box).appendChild(infos).appendChild(info1).appendChild(info1i);
       pic_in.appendChild(box).appendChild(infos).appendChild(info2).appendChild(info2i);
-      // if(next==null){
-      //   return null
-      // }
     };
   })
 };
@@ -122,28 +120,31 @@ function more(id="page="+next){
 
 window.addEventListener('scroll', () => {
   if(window.scrollY + window.innerHeight >= document.documentElement.scrollHeight){
+    console.log("called!")
     more();
   }
 });
 
+//若搜尋結果大於一頁 跑search()並且戴上頁 "nextk"
 
 function search(){
+  next=0;
+  document.getElementById("pic_in").innerHTML=""
   words=document.getElementById("s_bar").value;
-  console.log(words);
-  fetch('/api/attractions?page=0'+"&keyword="+words)
+  fetch('/api/attractions?page='+next+"&keyword="+words)
   .then(function(response) {
     return response.json();
   })
   .then(function(datas){
     if(datas.error==true){
       document.getElementById("pic_in").innerHTML="";
-      console.log(datas.message);
       document.getElementById("pic_in").innerHTML="查無資料";
+
     }else{
-    document.getElementById("pic_in").innerHTML="";
+    key="on"
+    // document.getElementById("pic_in").innerHTML="";
     next=datas.nextPage
     let data=datas.data;//這裡是景點12陣列
-    console.log("下一頁:",next);
     for(site of data){
       //圖片
       let pic=site["images"][0];
