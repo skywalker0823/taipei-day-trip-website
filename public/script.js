@@ -1,8 +1,7 @@
 
 
-
-//將要附加關鍵字if else
 let next;
+let words;
 function site_in(){
   fetch('/api/attractions?page=0')
   .then(function(response) {
@@ -12,7 +11,7 @@ function site_in(){
     next=datas.nextPage
     let data=datas.data//這裡是景點12陣列
     for(site of data){
-      // console.log(site["name"],site["images"][0],site["mrt"],site["category"])
+      // console.log(site["id"],site["name"],site["images"][0],site["mrt"],site["category"])
       //圖片
       let pic=site["images"][0];
       //景名
@@ -28,6 +27,7 @@ function site_in(){
       let box=document.createElement("div");
       box.className="box";
       box.id="box"+site["id"]
+      box.setAttribute("onclick","target(this.id)")
       //創建圖片標籤
       let pic_here = document.createElement("img");
       pic_here.className = "pic_here";
@@ -57,13 +57,16 @@ function site_in(){
 };
 
 
-function more(id="page="+next){
-  console.log(next)
-  keyw=document.getElementById("s_bar").value
-  if(next==null){
-    return null
-  }
-  if(keyw != null){keywords="&"+"keyword="+keyw}
+function more(id="page="+next,keywords="&keyword="+words){
+  console.log("more!",words,"next!:",next)
+  if(words==undefined){words=""};
+  // keyw=document.getElementById("s_bar").value;
+
+  //---奇蹟---
+  if(next==null || next==0){return null};
+  //---奇蹟---
+
+  // keywords="&"+"keyword="+keyw;
   fetch('/api/attractions?'+id+keywords)
   .then(function(response) {
     return response.json();
@@ -73,7 +76,7 @@ function more(id="page="+next){
     let data=datas.data;//這裡是景點12陣列
     // document.getElementById(id).id="page="+next;
     for(site of data){
-      // console.log(site["name"],site["images"][0],site["mrt"],site["category"])
+      // console.log(site["id"],site["name"],site["images"][0],site["mrt"],site["category"])
       //圖片
       let pic=site["images"][0];
       //景名
@@ -89,6 +92,7 @@ function more(id="page="+next){
       let box=document.createElement("div");
       box.className="box";
       box.id="box"+site["id"]
+      box.setAttribute("onclick","target(this.id)")
       //創建圖片標籤
       let pic_here = document.createElement("img");
       pic_here.className = "pic_here";
@@ -120,14 +124,14 @@ function more(id="page="+next){
 
 window.addEventListener('scroll', () => {
   if(window.scrollY + window.innerHeight >= document.documentElement.scrollHeight){
-    console.log("called!")
+    console.log("scrolled and more!")
     more();
   }
 });
 
-//若搜尋結果大於一頁 跑search()並且戴上頁 "nextk"
 
 function search(){
+  console.log("search!")
   next=0;
   document.getElementById("pic_in").innerHTML=""
   words=document.getElementById("s_bar").value;
@@ -141,11 +145,13 @@ function search(){
       document.getElementById("pic_in").innerHTML="查無資料";
 
     }else{
-    key="on"
     // document.getElementById("pic_in").innerHTML="";
     next=datas.nextPage
     let data=datas.data;//這裡是景點12陣列
+    
     for(site of data){
+      // console.log(site["id"],site["name"],site["images"][0],site["mrt"],site["category"])
+
       //圖片
       let pic=site["images"][0];
       //景名
@@ -161,6 +167,7 @@ function search(){
       let box=document.createElement("div");
       box.className="box";
       box.id="box"+site["id"]
+      box.setAttribute("onclick","target(this.id)")
       //創建圖片標籤
       let pic_here = document.createElement("img");
       pic_here.className = "pic_here";
@@ -189,3 +196,9 @@ function search(){
   }
   })
 };
+
+
+
+target=(id)=>{
+  console.log(id)
+}

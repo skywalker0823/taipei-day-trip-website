@@ -6,6 +6,7 @@ import pymysql
 import os
 import ast
 from flask import render_template as rt
+from modules.looper import looper
 # load_dotenv()
 connection=pymysql.connect(charset='utf8',db='website',host='127.0.0.1',password="",port=3306,user='root')
 
@@ -25,6 +26,7 @@ def index():
 	return rt("index.html")
 @app.route("/attraction/<id>")
 def attraction(id):
+	#依照帶入id找到目標資料
 	return render_template("attraction.html")
 @app.route("/booking")
 def booking():
@@ -33,71 +35,93 @@ def booking():
 def thankyou():
 	return render_template("thankyou.html")
 
-
+#%08 issue
 @app.route("/api/attractions", methods=["GET"])
 def api_attr():
 	page=request.args.get("page")
 	keyword=request.args.get("keyword")
+	print(keyword)
+	#got keywords
+	if keyword=="undefined":
+		keyword=""
 	if keyword!=None and keyword != "":
 		ender=(int(page)+1)*12
 		page=ender-12
-		print(1,page,ender)
 		with connection.cursor(pymysql.cursors.DictCursor) as cursor:
-			got=cursor.execute("""SELECT id,name,category2,description,address,transport,mrt,latitude,longitude,images FROM sites WHERE name like %s LIMIT %s,%s """,(("%"+keyword+"%"),page,ender))
+			got=cursor.execute("""SELECT id,name,category2,description,address,transport,mrt,latitude,longitude,images FROM sites WHERE name like %s LIMIT %s,%s """,(("%"+keyword+"%"),page,ender+1))
 			result=cursor.fetchall()
-			count=cursor.rowcount
+			# count=cursor.rowcount
 			connection.commit()
 			if got != 0:
 				summary=[]
-				if count<12:
+				if got<13:
+					# s=looper(result)
 					for site in result:
 						a_set={"id":site["id"],"name":site["name"],"category":site["category2"],"description":site["description"],"address":site["address"],"transport":site["transport"],"mrt":site["mrt"],"latitude":site["latitude"],"longitude":site["longitude"],"images":site["images"]}
 						a_set["images"]=ast.literal_eval(a_set["images"])
 						summary.append(a_set)
-					# summary[0]["data"][0]["images"]=ast.literal_eval(summary[0]["data"][0]["images"])
+					# print("notfull",s)
 					final={"nextPage":None,"data":summary}
+					# s=None
 					return jsonify(final)
-				for site in result:
-					a_set={"id":site["id"],"name":site["name"],"category":site["category2"],"description":site["description"],"address":site["address"],"transport":site["transport"],"mrt":site["mrt"],"latitude":site["latitude"],"longitude":site["longitude"],"images":site["images"]}
-					a_set["images"]=ast.literal_eval(a_set["images"])
-					summary.append(a_set)
-				# summary[0]["data"][0]["images"]=ast.literal_eval(summary[0]["data"][0]["images"])
-				final={"nextPage":int(ender)//12,"data":summary}
-				return jsonify(final)
+				else:
+					counter=0
+					# s=looper(result)
+					for site in result:
+						counter+=1
+						a_set={"id":site["id"],"name":site["name"],"category":site["category2"],"description":site["description"],"address":site["address"],"transport":site["transport"],"mrt":site["mrt"],"latitude":site["latitude"],"longitude":site["longitude"],"images":site["images"]}
+						a_set["images"]=ast.literal_eval(a_set["images"])
+						summary.append(a_set)
+						if counter==12:
+							# print("isfull",s)
+							final={"nextPage":int(ender)//12,"data":summary}
+							# s=None
+							return jsonify(final)
 			return jsonify({"error":True,"message":"查無資料"})
+	#no keywords
 	else:
 		if page==None:
 			page=0
+		#應改為抓13筆 判斷有無下頁
 		ender=(int(page)+1)*12
 		page=ender-11
+		#1,12    13,24    25,36
 		print(2,page,ender)
 		with connection.cursor(pymysql.cursors.DictCursor) as cursor:
-			got=cursor.execute("""SELECT id,name,category2,description,address,transport,mrt,latitude,longitude,images FROM sites WHERE id>=%s AND id<=%s """,(page,ender))
+			got=cursor.execute("""SELECT id,name,category2,description,address,transport,mrt,latitude,longitude,images FROM sites WHERE id>=%s AND id<=%s """,(page,ender+1))
 			result=cursor.fetchall()
-			count=cursor.rowcount
 			connection.commit()
 			if got != 0:
+				counter=0
 				summary=[]
-				if count<12:
+				#無下頁
+				if got<13:
+					# print("looper works")
+					# s=looper(result)
 					for site in result:
+						counter+=1
 						a_set={"id":site["id"],"name":site["name"],"category":site["category2"],"description":site["description"],"address":site["address"],"transport":site["transport"],"mrt":site["mrt"],"latitude":site["latitude"],"longitude":site["longitude"],"images":site["images"]}
 						a_set["images"]=ast.literal_eval(a_set["images"])
 						summary.append(a_set)
-					# summary[0]["data"][0]["images"]=ast.literal_eval(summary[0]["data"][0]["images"])
 					final={"nextPage":None,"data":summary}
+					# s=None
 					return jsonify(final)
-				for site in result:
-					a_set={"id":site["id"],"name":site["name"],"category":site["category2"],"description":site["description"],"address":site["address"],"transport":site["transport"],"mrt":site["mrt"],"latitude":site["latitude"],"longitude":site["longitude"],"images":site["images"]}
-					a_set["images"]=ast.literal_eval(a_set["images"])
-					summary.append(a_set)
-					# summary[0]["data"][0]["images"]=ast.literal_eval(summary[0]["data"][0]["images"])
-
-				final={"nextPage":int(ender)//12,"data":summary}
-				return jsonify(final)
+				#有下頁
+				else:
+					counter=0
+					for site in result:
+						counter+=1
+						a_set={"id":site["id"],"name":site["name"],"category":site["category2"],"description":site["description"],"address":site["address"],"transport":site["transport"],"mrt":site["mrt"],"latitude":site["latitude"],"longitude":site["longitude"],"images":site["images"]}
+						a_set["images"]=ast.literal_eval(a_set["images"])
+						summary.append(a_set)
+						if counter==12:
+							final={"nextPage":int(ender)//12,"data":summary}
+							print("still going",counter)
+							return jsonify(final)
 			return jsonify({"error":True,"message":"查無資料"})
 		
-		
 
+#單一景點資料
 @app.route("/api/attraction/<attractionId>", methods=["GET"])
 def api_atid(attractionId):
 	with connection.cursor(pymysql.cursors.DictCursor) as cursor:
@@ -106,7 +130,6 @@ def api_atid(attractionId):
 		connection.commit()
 		if got!=0:
 			summary={"data":{"id":site["id"],"name":site["name"],"category":site["category2"],"description":site["description"],"address":site["address"],"transport":site["transport"],"mrt":site["mrt"],"latitude":site["latitude"],"longitude":site["longitude"],"images":site["images"]}}
-			# summary[0]["data"][0]["images"]=ast.literal_eval(summary[0]["data"][0]["images"])
 			summary["data"]["images"]=ast.literal_eval(summary["data"]["images"])
 			return jsonify(summary)
 		return jsonify({"error":True,"message":"查無資料"})
