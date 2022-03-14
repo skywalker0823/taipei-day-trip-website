@@ -320,6 +320,7 @@ a{
     width: 100%;
     margin: 15px;
     margin-right: 30px;
+    align-items: center;
 }
 .roll_cap{
     display: flex;
@@ -327,6 +328,7 @@ a{
     position: relative;
     top:50%;
     opacity: 0.75;
+    align-self:stretch;
 }
 #roll_l{
     width: 36px;
@@ -350,6 +352,7 @@ a{
     justify-content: space-around;
     position: relative;
     bottom: 10%;
+    width: 60%;
 }
 .dots{
     width: 12px;
