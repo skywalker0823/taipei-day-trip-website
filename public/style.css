@@ -21,6 +21,7 @@ body{
     position: sticky;
     top: 0;
     z-index: 3;
+    border-bottom: 1px solid rgb(212, 211, 211);
 }
 .innr_nav{
     width: 1200px;
@@ -303,6 +304,9 @@ a{
 
 
 /* ----------------------- */
+
+
+
 .att_sec{
     display: flex;
     justify-content: space-around;
@@ -314,7 +318,8 @@ a{
     flex-direction: column;
     justify-content: center;
     width: 100%;
-    margin: 30px;
+    margin: 15px;
+    margin-right: 30px;
 }
 .roll_cap{
     display: flex;
@@ -406,7 +411,6 @@ a{
 }
 .roller_lower{
     height: 302px;
-    max-width: 93%;
     background: #E8E8E8;
     border-radius: 5px;
     padding-left: 15px;
@@ -525,11 +529,11 @@ input[type="radio"]:checked{
     .rolwer{padding: 15px}
     .roll_cap{position: relative; top: 210px;}
     .roller_point{position: relative;bottom: 50px;}
-    .roller_box>img{width: 100%;}
+    .roller_box>img{width: 100%;height: 350px;}
     .rolwer{padding-left: 15px;padding-right: 15px;}
     .roller_box{width: 100%;}
-    .roller_content{margin: 10px;}
-    .roller_upper{padding-left: 15px;padding-right: 15px;}
+    .roller_content{margin: 10px;align-items:stretch;}
+    .roller_upper{padding-left: 15px;padding-right: 15px;max-width: 93%;}
     .roller_lower{margin: 5px;}
 
 }
