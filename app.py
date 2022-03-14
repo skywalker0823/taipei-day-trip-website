@@ -26,7 +26,6 @@ def index():
 	return rt("index.html")
 @app.route("/attraction/<id>")
 def attraction(id):
-	#依照帶入id找到目標資料
 	return render_template("attraction.html")
 @app.route("/booking")
 def booking():
