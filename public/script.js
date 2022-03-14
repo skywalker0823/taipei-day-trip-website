@@ -63,9 +63,8 @@ function more(id="page="+next,keywords="&keyword="+words){
   if(words==undefined){words=""};
   // keyw=document.getElementById("s_bar").value;
 
-  //---奇蹟---
+  //---ckecking---
   if(next==null || next==0){return null};
-  //---奇蹟---
 
   // keywords="&"+"keyword="+keyw;
   fetch('/api/attractions?'+id+keywords)
@@ -211,7 +210,6 @@ target=(id)=>{
 //先假設這邊會拿到照片陣列 及資訊 以JS方式將圖片及html以外資料加上
 
 
-//need preload?
 let counter=1
 function attr(){
   let now=window.location.href
@@ -253,37 +251,17 @@ function attr(){
       document.getElementById("addr").innerHTML=addr;
       //交通
       document.getElementById("trans").innerHTML=trans;
-      
-      
-      
       //小圈點放置位置
       let dots=document.getElementById("pointer");
-
-
-
-
-
       //圖片放置盒 pic_box
       //圖片陣列imgs
       //創建圖片標籤
       //創建小圈點
-
       for(img of imgs){
         pic=document.createElement("img");//link?=>img
-        dot=document.createElement("li"); 
+        dot=document.createElement("li");
 
-
-        //prelod 測試區
         pic.src=img;//原.src
-        // pic.rel="preload"
-        // pic.as="image"
-
-
-
-
-
-
-
         pic.className="site_pics";
         pic.id="pic"+counter;
         
@@ -307,7 +285,7 @@ function attr(){
       
     }
   })
-}
+};
 
 
 
@@ -333,7 +311,6 @@ function clicker(h){
       show_time=document.getElementById("pic"+now_where);
       show_time.style.display="block";
       document.getElementById("dot"+now_where).style.background="black";
-
     }
 
   }else if(h=="roll_l"){
@@ -350,7 +327,6 @@ function clicker(h){
       show_time=document.getElementById("pic"+now_where);
       show_time.style.display="block";
       document.getElementById("dot"+now_where).style.background="black";
-
     }
   };
 };
@@ -362,5 +338,4 @@ function tt(m_or_e){
     rl_f.innerHTML="";
     rl_f.innerHTML="新台幣 2500 元"
   }else{rl_f.innerHTML="新台幣 2000 元"}
-  
-}
+};
