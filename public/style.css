@@ -490,11 +490,12 @@ input[type="radio"]:checked{
 }
 .border{
     width: 100%;
-    border: 0.5px solid rgb(194, 192, 192);
+    border: 1px solid rgb(194, 192, 192);
     margin: 0 auto;
     margin-bottom: 30px;
     position: relative;
     bottom: 30px;
+    border-top: 1px;
 
 
 }

@@ -331,6 +331,8 @@ function clicker(h){
   };
 };
 
+//圈圈點擊切換? 經由now_where
+
 function tt(m_or_e){
   fee=document.getElementById("rl_f");
   console.log(m_or_e.value)
@@ -339,3 +341,5 @@ function tt(m_or_e){
     rl_f.innerHTML="新台幣 2500 元"
   }else{rl_f.innerHTML="新台幣 2000 元"}
 };
+
+//盡量使用MVC模式來設計以後內容
