@@ -223,7 +223,9 @@ function attr(){
   })
   .then(function(datas){
     if(datas.error==true){
-      //待補
+      document.getElementById("att_sec").innerHTML="";
+      document.getElementById("rolwer").innerHTML="";
+      document.getElementById("att_sec").innerHTML="查無資料";
     }else{
       let name=datas.data.name
       let cat=datas.data.category
