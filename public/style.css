@@ -11,6 +11,9 @@ body{
     margin: 0 auto;
 
 }
+input{
+    padding-left:5px;
+}
 
 /* .world{
     position: fixed;
