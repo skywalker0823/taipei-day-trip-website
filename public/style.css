@@ -71,6 +71,7 @@ body{
     right: 20px;
     top: 30px;
     background: url("icon_close.png");
+    cursor: pointer;
 
 }
 .login_main_t{
@@ -98,6 +99,7 @@ body{
     font-size: 19px;
     color: #FFFFFF;
     border: none;
+    cursor: pointer;
 }
 .login_main_q{
     margin-top: 10px;
@@ -107,6 +109,7 @@ body{
     font-weight: 400;
     font-size: 16px;
     color: #666666;
+    cursor: pointer;
     
 }
 .signer{
@@ -174,6 +177,7 @@ body{
     font-size: 16px;
     line-height: 13px;
     color: #666666;
+    cursor: pointer;
     
 }
 .hero{
