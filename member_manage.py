@@ -9,9 +9,7 @@ import os
 import sys, traceback
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import set_access_cookies
-from flask_jwt_extended import get_jwt
 from flask_jwt_extended import jwt_required
-from flask_jwt_extended import JWTManager
 from flask_jwt_extended import unset_jwt_cookies
 from flask_jwt_extended import get_jwt_identity
 
@@ -47,6 +45,8 @@ def db(acc,pss,name,att):
 						return "ok"
 					else:
 						return "錯誤的密碼"
+				else:
+					return "database error"
 		except Exception as e:
 			print("type error: " + str(e))
 			print(traceback.format_exc())
