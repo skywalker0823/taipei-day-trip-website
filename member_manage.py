@@ -83,11 +83,11 @@ def db(acc,pss,name,att):
 
 #會員系統-茶豬料
 #從session 斷定此使用者身份 並回傳該資訊
-#session判斷未登入則傳回{"data":"null"}
 @member_manage.route('/api/user',methods=['GET'])
 @jwt_required()
 def iden():
 	try:
+		print("acquired!")
 		acc=get_jwt_identity()
 		result=db(acc,None,None,"iden")
 		return jsonify({'data':result})

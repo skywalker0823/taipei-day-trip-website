@@ -81,7 +81,7 @@ async function iden(){
   const response = await fetch('/api/user', options);
   const result = await response.json();
   if(result.data==null){
-    console.log('使用者尚未登入')
+    console.log('使用者尚未登入',result)
   }else{
     tager.innerHTML="登出系統";
     tager.setAttribute("onclick","logout()")

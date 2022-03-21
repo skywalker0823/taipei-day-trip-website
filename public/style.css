@@ -383,8 +383,6 @@ img{
     background: #757575;
     display: flex;
     position: -webkit-sticky;
-    position: sticky;
-    bottom: 0;
     height: 104px;
     justify-content: center;
     align-items: center;
