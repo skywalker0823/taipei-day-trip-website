@@ -11,6 +11,121 @@ body{
     margin: 0 auto;
 
 }
+
+/* .world{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(128,128,128,0.5); 
+    display: none; 
+    z-index: 999;
+} */
+.mask{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    background: #000000;
+    opacity: 0.25;
+    display: none;
+    z-index: 250;
+}
+
+.loger{
+    position: fixed; /* positioning in center of page */
+    top: 220px;
+    left: 50vw;
+    transform: translate(-50%,-50%);
+    width: 340px;
+    background-color: white;
+    display: none;
+    flex-direction: column;
+    z-index: 500;
+    border-radius: 6px;
+}
+.loger_cap{
+    height: 10px;
+    background: linear-gradient(270deg, #337788 0%, #66AABB 100%);
+    border-radius: 6px 6px 0px 0px;
+}
+.loger_main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.login_main_i{
+    margin: 15px;
+    font-family: 'Noto Sans TC';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    color: #666666;
+}
+.X{
+    position: absolute;
+    height: 16px;
+    width: 16px;
+    right: 20px;
+    top: 30px;
+    background: url("icon_close.png");
+
+}
+.login_main_t{
+    margin-bottom: 10px;
+    width: 310px;
+    height: 47px;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    box-sizing: border-box;
+    border-radius: 5px;
+    font-family: 'Noto Sans TC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    color: #666666;
+}
+.login_main_b{
+    width: 310px;
+    height: 47px;
+    background: #448899;
+    border-radius: 5px;
+    font-family: 'Noto Sans TC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 19px;
+    color: #FFFFFF;
+    border: none;
+}
+.login_main_q{
+    margin-top: 10px;
+    margin-bottom: 15px;
+    font-family: 'Noto Sans TC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    color: #666666;
+    
+}
+.signer{
+    position: fixed; /* positioning in center of page */
+    top: 250px;
+    left: 50vw;
+    transform: translate(-50%,-50%);
+    width: 340px;
+    background-color: white;
+    display: none;
+    flex-direction: column;
+    z-index: 500;
+    border-radius: 6px;
+}
+
+
+
+
+
 .nav{
     height: 54px;
     background: #FFFFFF;
@@ -52,7 +167,6 @@ body{
     align-items: flex-start;
     padding: 10px;
 }
-
 .bb{
     font-family: Noto Sans TC;
     font-style: normal;
@@ -62,9 +176,6 @@ body{
     color: #666666;
     
 }
-
-
-
 .hero{
     display: flex;
     background: linear-gradient(135deg, #AADDEE 0%, #66AABB 100%);
@@ -141,6 +252,11 @@ body{
     width: 400px;
     border-radius: 5px 0px 0px 5px;
     border: none;
+    font-family: 'Noto Sans TC';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    color: #757575;
 }
 .srh_btn{
     width: 60px;
@@ -158,10 +274,6 @@ body{
     position: relative;
     right: 5px;
 }
-
-
-
-
 .flex{
     display: flex;
     flex-wrap: wrap;
@@ -256,10 +368,6 @@ img{
     .sec1{margin-top: -150px;}
     .home_title{margin: 5px;}
 }
-
-
-
-
 .foot{
     background: #757575;
     display: flex;
@@ -303,7 +411,8 @@ a{
 }
 
 
-/* ----------------------- */
+
+/* ---Attraction--- */
 
 
 
@@ -363,20 +472,6 @@ a{
     margin-left: 7px;
     margin-right: 7px;
 }
-
-/* 圖片控制區域 */
-
-
-/* .invis{
-    display: none;
-}
-.vis{
-    display: block;
-} */
-
-
-
-
 .roller_box>img{
     height:406px;
     object-fit: cover;
@@ -541,7 +636,15 @@ input[type="radio"]:checked{
     .roller_content{margin: 10px;align-items:stretch;}
     .roller_upper{padding-left: 15px;padding-right: 15px;max-width: 93%;}
     .roller_lower{margin: 5px;}
-
+    .book{flex-direction: column;align-items: center;}
+    .book_welc{padding-left: 5px;}
+    .booker{flex-direction: column;width: 100%;align-items: flex-start;}
+    .book_info{position: relative;right: 15px;margin-top: 30px;}
+    .book_info_d{margin-left: 5px;}
+    .book_detail_memo{margin-left: 5px;}
+    .book_cancel{position: relative;left:150px}
+    .book_where{width: 100%;align-items: center;}
+    .book_where_site{width: 100%;}
 }
 ::-webkit-calendar-picker-indicator {
     background-image: url("icon_calendar.png");
@@ -564,4 +667,123 @@ input[type="radio"]:checked{
 }
 .site_pics{
     transition: opacity 0.5s;
+}
+
+/* ---Booking--- */
+
+.book_welc{
+    display: flex;
+    font-family: 'Noto Sans TC';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 19px;
+    color: #666666;
+    max-width: 1000px;
+    margin: 0 auto;
+    margin-top: 35px;
+}
+.book{
+    display: flex;
+    margin: 0 auto;
+    justify-content: space-between;
+    max-width: 1000px;
+    margin-top: 35px;
+}
+.booker{
+    display: flex;
+}
+.book_where{
+    display: flex;
+    flex-direction: column;
+}
+.book_input{
+    background: #FFFFFF;
+    border: 1px solid #E8E8E8;
+    box-sizing: border-box;
+    border-radius: 5px;
+    height: 38px;
+    width: 200px;
+    margin-left: 5px;
+}
+
+.book_where_site{
+    height: 200px;
+}
+.book_where_site_img{
+    width: 100%;
+}
+.book_info{
+    margin-left: 22px;
+}
+.book_info_name{
+    font-family: 'Noto Sans TC';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    color: #448899;
+}
+.book_info_c{
+    font-family: 'Noto Sans TC';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    color: #666666;
+    margin-top: 20px;
+}
+.book_info_d{
+    margin-top: 24px;
+}
+.book_info_c_i{
+    font-family: 'Noto Sans TC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    color: #666666;
+    margin-top: 15px;
+}
+
+
+.book_cancel{
+    height: 30px;
+    width: 30px;
+
+}
+.boorder{
+    max-width: 1200px;
+    border: 1px solid rgb(194, 192, 192);
+    border-top: 1px;
+    margin: 0 auto;
+    margin-top: 40px;
+}
+
+.book_detail{
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+.book_detail_memo{
+    margin-top: 20px;
+    font-family: 'Noto Sans TC';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    color: #666666;
+}
+.book_detail_i{
+
+}
+
+.confirm{
+    display: flex;
+    justify-content: flex-end;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.confirm_fee{
+    font-family: 'Noto Sans TC';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    color: #666666;
 }

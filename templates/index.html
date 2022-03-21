@@ -8,6 +8,36 @@
     <title>My Website</title>
 </head>
 <body onload="site_in()">
+    <div class="mask" id="mask"></div>
+    <div class="loger" id="loger">
+        <div class="loger_cap"></div>
+        <div class="loger_main">
+            <p class="login_main_i">登入會員帳號</p>
+            <div class="X" onclick="loger_off()"></div>
+            <input class="login_main_t" id="acc" type="email" placeholder="輸入電子信箱">
+            <input class="login_main_t" id="pss" type="password" placeholder="輸入密碼">
+            <input class="login_main_b" type="button" onclick="login()" value="登入帳戶">
+            <p id="err_login" style="color: red;margin-top: 10px;"></p>
+            <p class="login_main_q" id="signup_sw" onclick="switcher(this.id)">還沒有帳戶?點此註冊</p>
+        </div>
+    </div>
+    
+    <div class="signer" id="signer">
+        <div class="loger_cap"></div>
+        <div class="loger_main">
+            <p class="login_main_i">註冊會員帳號</p>
+            <div class="X" onclick="loger_off()"></div>
+            <input class="login_main_t" id="u_name" type="text" placeholder="輸入姓名">
+            <input class="login_main_t" id="u_mail" type="email" placeholder="輸入電子郵件">
+            <input class="login_main_t" id="u_pass" type="password" placeholder="輸入密碼">
+            <input class="login_main_b" type="button" onclick="signup()" value="註冊新帳戶">
+            <p id="err_signup" style="color: red;margin-top: 10px;"></p>
+            <p class="login_main_q" id="login_sw" onclick="switcher(this.id)">已經有帳戶了?點此登入</p>
+        </div>
+    </div>
+
+
+
     <nav class="nav">
         <div class="innr_nav">
         <a href="/" class="home_title">台北一日遊</a>
@@ -15,7 +45,7 @@
             <div class="frame2">
                 <div class="frame1">
                     <a href="#" class="b_b"><p class="bb">預定行程</p></a>
-                    <a href="#" class="b_b"><p class="bb">登入/註冊</p></a>
+                    <a class="b_b"><p class="bb" id="tager" onclick="loger_on()">登入/註冊</p></a>
                 </div>
             </div>
         </div>
@@ -51,5 +81,6 @@
             <button id="page" onclick="more(this.id)">more</button>
         </div> -->
     <script type="text/javascript" src="script.js"></script>
+    <script type="text/javascript" src="loger.js"></script>
 </body>
 </html>
