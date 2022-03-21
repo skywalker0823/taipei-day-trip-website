@@ -6,13 +6,16 @@ let signer=document.getElementById('signer');
 let tager=document.getElementById('tager');
 let err_l=document.getElementById('err_login');
 let err_s=document.getElementById('err_signup');
+const mail_format = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 switcher=(s)=>{
   if(s=="signup_sw"){
     loger.style.display="none";
     signer.style.display="block";
+    err_s.innerHTML=null
   }else{
   loger.style.display="block";
   signer.style.display="none";
+  err_l.innerHTML=null
   }
 }
 
@@ -93,6 +96,14 @@ async function signup(){
   let u_name=document.getElementById("u_name").value;
   let u_mail=document.getElementById("u_mail").value;
   let u_pass=document.getElementById("u_pass").value;
+  if(u_name.length==0 || u_name.length==0 || u_pass.length==0){
+    err_s.innerHTML="";
+    err_s.innerHTML="就跟人生一樣，勿留空白"
+    return null
+  }
+  if(acc.match(mail_format)){
+    console.log("shall pass")
+  }else{err_l.innerHTML="";err_l.innerHTML="郵件帳號不符格式";return null}
   const result = await this.linkin(u_mail,u_pass,u_name,'POST');
   if(result.ok){
     err_s.innerHTML="";
@@ -109,6 +120,14 @@ async function signup(){
 async function login(){
   let acc=document.getElementById("acc").value;
   let pss=document.getElementById("pss").value;
+  if(acc.length==0 || pss.length==0){
+    err_l.innerHTML="";
+    err_l.innerHTML="空白是你給的浪漫";
+    return null
+  }
+  if(acc.match(mail_format)){
+    console.log("shall pass")
+  }else{err_l.innerHTML="";err_l.innerHTML="郵件帳號不符格式";return null}
   const result = await this.linkin(acc,pss,'none','patch');
   if(result.ok){
     //登入成功，應需求做畫面變化

@@ -28,7 +28,7 @@ function site_in(){
       box.href="/attraction/"+site["id"]
       box.className="box";
       box.id="box"+site["id"]
-      box.setAttribute("onclick","target(this.id)")
+      // box.setAttribute("onclick","target(this.id)")
       //創建圖片標籤
       let pic_here = document.createElement("img");
       pic_here.className = "pic_here";
@@ -93,7 +93,7 @@ function more(id="page="+next,keywords="&keyword="+words){
       box.href="/attraction/"+site["id"]
       box.className="box";
       box.id="box"+site["id"]
-      box.setAttribute("onclick","target(this.id)")
+      // box.setAttribute("onclick","target(this.id)")
       //創建圖片標籤
       let pic_here = document.createElement("img");
       pic_here.className = "pic_here";
@@ -169,7 +169,7 @@ function search(){
       box.href="/attraction/"+site["id"]
       box.className="box";
       box.id="box"+site["id"]
-      box.setAttribute("onclick","target(this.id)")
+      // box.setAttribute("onclick","target(this.id)")
       //創建圖片標籤
       let pic_here = document.createElement("img");
       pic_here.className = "pic_here";
@@ -200,8 +200,3 @@ function search(){
 };
 
 // --------      
-
-// 點擊即可以顯示目標id
-target=(id)=>{
-  console.log(id)
-}
