@@ -101,9 +101,9 @@ async function signup(){
     err_s.innerHTML="就跟人生一樣，勿留空白"
     return null
   }
-  if(acc.match(mail_format)){
+  if(u_mail.match(mail_format)){
     console.log("shall pass")
-  }else{err_l.innerHTML="";err_l.innerHTML="郵件帳號不符格式";return null}
+  }else{err_s.innerHTML="";err_s.innerHTML="郵件帳號不符格式";return null}
   const result = await this.linkin(u_mail,u_pass,u_name,'POST');
   if(result.ok){
     err_s.innerHTML="";
