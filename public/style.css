@@ -90,6 +90,7 @@ input{
     font-weight: 400;
     font-size: 16px;
     color: #666666;
+    padding-left: 15px;
 }
 .login_main_b{
     width: 310px;
@@ -264,6 +265,8 @@ input{
     font-weight: 700;
     font-size: 16px;
     color: #757575;
+    padding-left: 15px;
+
 }
 .srh_btn{
     width: 60px;
@@ -403,7 +406,7 @@ img{
     align-items: center;
     color: #757575;
     position: relative;
-    left:10px
+
 }
 
 a{
