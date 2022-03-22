@@ -6,7 +6,17 @@ import pymysql
 import os
 import ast
 from flask import render_template as rt
+from pymysql import NULL
 from modules.looper import looper
+from member_manage import member_manage
+from booking_manage import booking_manage
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import get_jwt
+from flask_jwt_extended import jwt_required
+from flask_jwt_extended import JWTManager
+from datetime import datetime
+from datetime import timedelta
+from datetime import timezone
 # load_dotenv()
 connection=pymysql.connect(charset='utf8',db='website',host='127.0.0.1',password="",port=3306,user='root')
 
@@ -17,8 +27,18 @@ static_url_path="/")
 app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
 app.config['JSON_SORT_KEYS'] = False
-# app.secret_key=os.getenv("SECRET_KEY")
 
+app.secret_key= os.urandom(8)
+
+app.config["JWT_SECRET_KEY"] = os.urandom(8)
+app.config["JWT_TOKEN_LOCATION"] = ["cookies"]
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
+
+jwt = JWTManager(app)
+
+
+app.register_blueprint(member_manage)
+app.register_blueprint(booking_manage)
 
 # Pages
 @app.route("/")
@@ -133,6 +153,9 @@ def api_atid(attractionId):
 			return jsonify(summary)
 		return jsonify({"error":True,"message":"查無資料"})
 
+@jwt.unauthorized_loader
+def custom_unauthorized_response(err):
+    return jsonify({"data":None})
 
 if __name__=="__main__":
 	app.run(host='0.0.0.0',port=3000)
