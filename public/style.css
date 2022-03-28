@@ -661,14 +661,15 @@ input[type="radio"]:checked{
 }
 ::-webkit-calendar-picker-indicator {
     background-image: url("icon_calendar.png");
-  }
+}
+
 .input_d{
-    border: none;
     height: 35px;
     width: 190px;
     background-color: white;
-}
+    border: none;
 
+}
 .foot2{
     background: #757575;
     color: white;
@@ -803,6 +804,12 @@ display: flex;
 }
 .book_info_c_i{
     margin-top: 15px;
+
+font-family: 'Noto Sans TC';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+color: #666666;
 }
 .book_info_cc{
 font-family: 'Noto Sans TC';

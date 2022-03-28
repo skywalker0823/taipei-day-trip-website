@@ -143,11 +143,15 @@ async function confirm(){
   let site=window.location.href.split("/")[4];
   let date=document.getElementById("order_data").value;
   let price = document.getElementById("rl_f").innerHTML.match(/\d/g).join("");
+  let order_data=document.getElementById("order_data")
   let time
   if(price==2500){time="afternoon"}else{time="morning"}
   console.log(site,date,time,price);
   if(date==false){
     console.log("日期要填拉")
+    // order_data.classList.remove("input_d")
+    // order_data.classList.add("input_e")
+    
     return null;
   }
   const options = {
