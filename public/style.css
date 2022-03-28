@@ -731,6 +731,7 @@ font-weight: 700;
 font-size: 16px;
 color: #666666;
 margin-right: 5px;
+min-width: 45px;
 }
 .find_no{
     text-align: center;
@@ -743,6 +744,10 @@ max-width: 1000px;
 margin: 0 auto;
 display: flex;
 }
+.find_no_i{
+    margin-left: 5px;
+}
+
 .a_book{
     display: flex;
     justify-content: space-between;
@@ -808,6 +813,7 @@ font-weight: 400;
 font-size: 16px;
 color: #666666;
 display: flex;
+
 }
 .book_info_c_i{
     margin-top: 15px;

@@ -24,8 +24,9 @@ async function booker(){
   }
   if(result.data.length==0){
     console.log("there is nothong ordered")
-    fn.style.display="block"
+    fn.style.display="flex"
     //無資料時的畫面處理
+    document.getElementById("boorder").style.display="none"
     document.getElementById("remover").innerHTML=null
     let b_foot=document.getElementById("book_foot");
 
@@ -198,8 +199,9 @@ render_price=()=>{
   }
   total_price.innerHTML=total
   if(total==0){
-    fn.style.display="block"
+    fn.style.display="flex"
     document.getElementById("remover").innerHTML = null;
+    document.getElementById("boorder").style.display = "none";
   }
 }
 
