@@ -21,26 +21,26 @@ from dbutils.pooled_db import PooledDB
 
 
 
-POOL = PooledDB(
-    creator=pymysql,  # Which DB module to use
-    maxconnections=6,  # Allowed max connection, 0 and None means no limitations.
-    mincached=2,  # Least connection when created, 0 means don't.
-    blocking=True,  # Queue when there is no connection avaliable. True = wait；False = No waits, and report error.
-    ping=0, # Check if Mysql service is avaliable # if：0 = None = never, 1 = default = whenever it is requested, 2 = when a cursor is created, 4 = when a query is executed, 7 = always
+# POOL = PooledDB(
+#     creator=pymysql,  # Which DB module to use
+#     maxconnections=6,  # Allowed max connection, 0 and None means no limitations.
+#     mincached=2,  # Least connection when created, 0 means don't.
+#     blocking=True,  # Queue when there is no connection avaliable. True = wait；False = No waits, and report error.
+#     ping=0, # Check if Mysql service is avaliable # if：0 = None = never, 1 = default = whenever it is requested, 2 = when a cursor is created, 4 = when a query is executed, 7 = always
 
-    host='127.0.0.1',
-    port=3306,
-    user='root',
-    password="",
-    database='website',
-    charset='utf8',
-    cursorclass=pymysql.cursors.DictCursor
-)
-connection = POOL.connection()
+#     host='127.0.0.1',
+#     port=3306,
+#     user='root',
+#     password="",
+#     database='website',
+#     charset='utf8',
+#     cursorclass=pymysql.cursors.DictCursor
+# )
+# connection = POOL.connection()
 
 
 
-# connection=pymysql.connect(charset='utf8',db='website',host='127.0.0.1',password="",port=3306,user='root')
+connection=pymysql.connect(charset='utf8',db='website',host='127.0.0.1',password="",port=3306,user='root')
 
 
 app=Flask(__name__,
