@@ -679,6 +679,19 @@ input[type="radio"]:checked{
     position: relative;
     top:100px;
 }
+.foot3{
+    background: #757575;
+    color: white;
+    display: flex;
+    height: 104px;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
+
 .site_pics{
     transition: opacity 0.5s;
 }

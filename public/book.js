@@ -202,7 +202,8 @@ render_price=()=>{
     fn.style.display="flex"
     document.getElementById("remover").innerHTML = null;
     document.getElementById("boorder").style.display = "none";
-  }
+    document.getElementById("book_foot").className = "foot3";
+  }else{document.getElementById("book_foot").className="foot2"}
 }
 
 // switch_mode=()=>{
