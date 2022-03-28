@@ -139,11 +139,12 @@ function tt(m_or_e){
 //fetch資料庫 若登入 記住(append)其預定資訊 並導至booking.html
 //若無登入 將會有其他提示 網站暫時不做動作
 
+let order_data = document.getElementById("order_data");
+
 async function confirm(){
   let site=window.location.href.split("/")[4];
   let date=document.getElementById("order_data").value;
   let price = document.getElementById("rl_f").innerHTML.match(/\d/g).join("");
-  let order_data=document.getElementById("order_data")
   let time
   if(price==2500){time="afternoon"}else{time="morning"}
   console.log(site,date,time,price);
@@ -151,7 +152,10 @@ async function confirm(){
     console.log("日期要填拉")
     // order_data.classList.remove("input_d")
     // order_data.classList.add("input_e")
-    
+    order_data.style.background = "rgb(207 69 69)";
+    setTimeout(() => {
+      order_data.style.background="white"
+    }, 500);
     return null;
   }
   const options = {

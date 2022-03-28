@@ -186,4 +186,4 @@ def my_expired_token_callback(jwt_header, jwt_payload):
 
 
 if __name__=="__main__":
-	app.run(host='0.0.0.0',port=3000,debug=True)
+	app.run(host='0.0.0.0',port=3000)
