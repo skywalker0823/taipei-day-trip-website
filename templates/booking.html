@@ -45,29 +45,27 @@
             </div>
         </div>
     </nav>
-<div class="book_welc">您好，<span>你的名字</span>，待預定的行程如下:</div>  
-    <section class="book">
+<div class="book_welc">您好，<span id="book_name"></span>，待預定的行程如下:</div> 
+<!-- <div><button onclick="switch_mode()">切換</button></div> -->
+    <section class="book" id="book_start">
 
 
+        <!-- <div class="catalog" id="catalog">
+            <div class="cata_1">台北一日遊</div>
+            <div class="cata_2">日期</div>
+            <div class="cata_2">時間</div>
+            <div class="cata_2">費用</div>
+            <div class="cata_2">地點</div>
+        </div> -->
 
-        <div class="booker">
-            <div class="book_where">
-                <picture class="book_where_site"><img class="book_where_site_img" src="https://www.travel.taipei/d_upload_ttn/sceneadmin/image/a0/b0/c1/d746/e248/f126/cc9cc473-f729-4504-b702-eb65856fcbe8.jpg"></picture>
-            </div>
-            <div class="book_info">
-                <div class="book_info_name">台北一日遊:<span>平安鐘</span></div>
-
-                <div class="book_info_c">日期 :<span class="book_info_c_i">2021-04-05</span></div>
-                <div class="book_info_c">時間 :<span class="book_info_c_i">早上九點到下午四點</span></div>
-                <div class="book_info_c">費用 :<span class="book_info_c_i">新台幣2000元</span></div>
-                <div class="book_info_c">地點 :<span class="book_info_c_i">台北市 大安區忠孝東路四段</span></div>
-            </div>
-        </div>
-
-
-        <div class="book_cancel" onclick=""><img src="icon_delete.png"></div>
     </section>
+
+<div class="find_no" id="find_no">查無資料</div>
 <div class="boorder"></div>
+
+
+<div class="remover" id="remover">
+
     <section class="book_detail">
         <div class="book_detail_i">
             <div class="book_welc">您的聯絡資訊</div>
@@ -93,12 +91,16 @@
 <div class="boorder"></div>
 <div class="confirm">
     <div style="margin-top: 43px;">
-        <div class="confirm_fee">總價:新台幣<span>2000元</span></div>
+        <div class="confirm_fee">總價:新台幣<span id="total_price">0</span>元</div>
         <input type="button" value="確認訂購並付款" class="tc"></input>
 
     </div>
 </div>
-<footer class="foot2">COPYRIGHT © 2021 台北一日遊</footer>
+
+</div>
+
+
+<footer class="foot2" id="book_foot">COPYRIGHT © 2021 台北一日遊</footer>
 <script type="text/javascript" src="../book.js"></script>
 <script type="text/javascript" src="../loger.js"></script>
 </body>

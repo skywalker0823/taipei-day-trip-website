@@ -60,7 +60,7 @@ def api_attr():
 	page=request.args.get("page")
 	keyword=request.args.get("keyword")
 	print(keyword)
-	#got keywords
+	#got keyword
 	if keyword=="undefined":
 		keyword=""
 	if keyword!=None and keyword != "":
@@ -82,7 +82,6 @@ def api_attr():
 					# print("notfull",s)
 					final={"nextPage":None,"data":summary}
 					# s=None
-					return jsonify(final)
 				else:
 					counter=0
 					# s=looper(result)
@@ -153,9 +152,16 @@ def api_atid(attractionId):
 			return jsonify(summary)
 		return jsonify({"error":True,"message":"查無資料"})
 
+#未持token
 @jwt.unauthorized_loader
 def custom_unauthorized_response(err):
-    return jsonify({"data":None})
+	print("how?: ",err)
+	return jsonify({"data":None})
+#持有token但過期
+@jwt.expired_token_loader
+def my_expired_token_callback(jwt_header, jwt_payload):
+    return jsonify(code="XD", err="Token expired, please login again"), 401
+
 
 if __name__=="__main__":
 	app.run(host='0.0.0.0',port=3000)

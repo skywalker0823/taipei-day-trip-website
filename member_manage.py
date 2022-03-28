@@ -9,7 +9,6 @@ import os
 import sys, traceback
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import set_access_cookies
-
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import unset_jwt_cookies
 from flask_jwt_extended import get_jwt_identity
@@ -48,7 +47,9 @@ def db(acc,pss,name,att):
 					return "查無此號"
 				elif got==1:
 					if pss==result['password']:
-						return "ok"
+						id=result['id']
+						#應該一起放入使用者id
+						return ("ok",id)
 					else:
 						return "錯誤的密碼"
 				else:
@@ -89,7 +90,7 @@ def iden():
 	try:
 		print("acquired!")
 		acc=get_jwt_identity()
-		result=db(acc,None,None,"iden")
+		result=db(acc["acc"],None,None,"iden")
 		return jsonify({'data':result})
 	except Exception as e:
 		print("type error: " + str(e))
@@ -130,10 +131,10 @@ def login():
 		att="login"
 		result=db(acc,pss,name,att)
 		#字典類型錯誤!
-		if result=="ok":
-			# session['user']=acc
-			response = jsonify({result:True})
-			access_token = create_access_token(identity=acc)
+		if result[0]=="ok":
+			response = jsonify({result[0]:True})
+			meta={"acc":acc,"id":str(result[1])}
+			access_token = create_access_token(identity=meta)
 			set_access_cookies(response,access_token)
 			return response
 		return jsonify({"error":result})
