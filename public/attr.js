@@ -175,5 +175,4 @@ async function confirm(){
     }else{window.location.replace("../booking")}
     //畫面移交至booking
   }else{loger_on()}
-
 }

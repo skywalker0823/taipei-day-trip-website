@@ -95,12 +95,6 @@ async function booker(){
   cata_5.setAttribute("class", "cata_2");
   trip_a = document.createTextNode("地址 :");
   cata_5.appendChild(trip_a);
-  //裝載
-
-
-
-
-
   //主要資訊 注意加上true_id地點與可能使用方式
   //地名
   let b_name=document.createElement("div");
