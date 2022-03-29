@@ -133,3 +133,46 @@ function tt(m_or_e){
     rl_f.innerHTML="新台幣 2500 元"
   }else{rl_f.innerHTML="新台幣 2000 元"}
 };
+
+
+//預定行程 擷取 景點id 日期 金額(同時代表上下天)   以一組特殊號碼表達之
+//fetch資料庫 若登入 記住(append)其預定資訊 並導至booking.html
+//若無登入 將會有其他提示 網站暫時不做動作
+
+let order_data = document.getElementById("order_data");
+
+async function confirm(){
+  let site=window.location.href.split("/")[4];
+  let date=document.getElementById("order_data").value;
+  let price = document.getElementById("rl_f").innerHTML.match(/\d/g).join("");
+  let time
+  if(price==2500){time="afternoon"}else{time="morning"}
+  console.log(site,date,time,price);
+  if(date==false){
+    console.log("日期要填拉")
+    // order_data.classList.remove("input_d")
+    // order_data.classList.add("input_e")
+    order_data.style.background = "rgb(207 69 69)";
+    setTimeout(() => {
+      order_data.style.background="white"
+    }, 500);
+    return null;
+  }
+  const options = {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      "X-CSRF-TOKEN": getCookie("csrf_access_token"),
+    },
+    body: JSON.stringify({ attractionId: site, date: date, time: time,price:price }),
+  };
+  const response = await fetch("../api/booking", options);
+  const result = await response.json();
+  if(result.ok){
+    if (date == false) {
+      console.log("日期要填拉");
+      return null;
+    }else{window.location.replace("../booking")}
+    //畫面移交至booking
+  }else{loger_on()}
+}

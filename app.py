@@ -17,8 +17,30 @@ from flask_jwt_extended import JWTManager
 from datetime import datetime
 from datetime import timedelta
 from datetime import timezone
-# load_dotenv()
-connection=pymysql.connect(charset='utf8',db='website',host='127.0.0.1',password="",port=3306,user='root')
+from dbutils.pooled_db import PooledDB
+
+
+
+POOL = PooledDB(
+    creator=pymysql,  # Which DB module to use
+    maxconnections=6,  # Allowed max connection, 0 and None means no limitations.
+    mincached=2,  # Least connection when created, 0 means don't.
+    blocking=True,  # Queue when there is no connection avaliable. True = wait；False = No waits, and report error.
+    ping=0, # Check if Mysql service is avaliable # if：0 = None = never, 1 = default = whenever it is requested, 2 = when a cursor is created, 4 = when a query is executed, 7 = always
+
+    host='127.0.0.1',
+    port=3306,
+    user='root',
+    password="",
+    database='website',
+    charset='utf8',
+    cursorclass=pymysql.cursors.DictCursor
+)
+connection = POOL.connection()
+
+
+
+# connection=pymysql.connect(charset='utf8',db='website',host='127.0.0.1',password="",port=3306,user='root')
 
 
 app=Flask(__name__,
@@ -60,7 +82,7 @@ def api_attr():
 	page=request.args.get("page")
 	keyword=request.args.get("keyword")
 	print(keyword)
-	#got keywords
+	#got keyword
 	if keyword=="undefined":
 		keyword=""
 	if keyword!=None and keyword != "":
@@ -82,7 +104,6 @@ def api_attr():
 					# print("notfull",s)
 					final={"nextPage":None,"data":summary}
 					# s=None
-					return jsonify(final)
 				else:
 					counter=0
 					# s=looper(result)
@@ -153,9 +174,16 @@ def api_atid(attractionId):
 			return jsonify(summary)
 		return jsonify({"error":True,"message":"查無資料"})
 
+#未持token
 @jwt.unauthorized_loader
 def custom_unauthorized_response(err):
-    return jsonify({"data":None})
+	print("how?: ",err)
+	return jsonify({"data":None})
+#持有token但過期
+@jwt.expired_token_loader
+def my_expired_token_callback(jwt_header, jwt_payload):
+    return jsonify(code="XD", err="Token expired, please login again"), 401
+
 
 if __name__=="__main__":
 	app.run(host='0.0.0.0',port=3000)

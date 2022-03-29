@@ -310,6 +310,7 @@ img{
     flex-direction: column;
     border: 1px solid rgba(138, 138, 138, 0.5);
     border-radius: 5px;
+    transition: all 0.3s ease-out;
 }
 .name_here{
     font-family: Noto Sans TC;
@@ -590,6 +591,7 @@ input[type="radio"]:checked{
     font-weight: 400;
     font-size: 19px;
     line-height: 16px;
+    cursor: pointer;
 
 }
 .border{
@@ -600,8 +602,6 @@ input[type="radio"]:checked{
     position: relative;
     bottom: 30px;
     border-top: 1px;
-
-
 }
 .rolwer{
     position: relative;
@@ -648,23 +648,27 @@ input[type="radio"]:checked{
     .book{flex-direction: column;align-items: center;}
     .book_welc{padding-left: 5px;}
     .booker{flex-direction: column;width: 100%;align-items: flex-start;}
-    .book_info{position: relative;right: 15px;margin-top: 30px;}
+    .book_info{flex-direction: column;position: relative;margin-top: 30px;justify-content: space-around;margin-right: 60px;}
     .book_info_d{margin-left: 5px;}
     .book_detail_memo{margin-left: 5px;}
-    .book_cancel{position: relative;left:150px}
     .book_where{width: 100%;align-items: center;}
     .book_where_site{width: 100%;}
+
+    .a_book{flex-direction: column;width: 100%;align-items: flex-end;}
+    .book_where_site_img{width: 96% !important;}
 }
 ::-webkit-calendar-picker-indicator {
     background-image: url("icon_calendar.png");
-  }
+}
+
 .input_d{
-    border: none;
     height: 35px;
     width: 190px;
     background-color: white;
-}
+    border: none;
+    transition: all 1s;
 
+}
 .foot2{
     background: #757575;
     color: white;
@@ -675,6 +679,19 @@ input[type="radio"]:checked{
     position: relative;
     top:100px;
 }
+.foot3{
+    background: #757575;
+    color: white;
+    display: flex;
+    height: 104px;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
+
 .site_pics{
     transition: opacity 0.5s;
 }
@@ -695,16 +712,68 @@ input[type="radio"]:checked{
 .book{
     display: flex;
     margin: 0 auto;
-    justify-content: space-between;
     max-width: 1000px;
     margin-top: 35px;
+    flex-direction: column;
+}
+.catalog{
+    display: flex;
+    font-family: 'Noto Sans TC';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    color: #666666;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 150px;
+    margin-left: 22px;
+    padding-bottom: 25px;
+}
+.cata_1{
+font-family: 'Noto Sans TC';
+font-style: normal;
+font-weight: 700;
+font-size: 16px;
+color: #448899;
+margin-right: 5px;
+}
+.cata_2{
+font-family: 'Noto Sans TC';
+font-style: normal;
+font-weight: 700;
+font-size: 16px;
+color: #666666;
+margin-right: 5px;
+min-width: 45px;
+}
+.find_no{
+    text-align: center;
+font-family: 'Noto Sans TC';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+color: #666666;
+max-width: 1000px;
+margin: 0 auto;
+display: flex;
+}
+.find_no_i{
+    margin-left: 5px;
+}
+
+.a_book{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
 }
 .booker{
     display: flex;
+    height: 100px;
 }
 .book_where{
     display: flex;
     flex-direction: column;
+
 }
 .book_input{
     background: #FFFFFF;
@@ -714,16 +783,30 @@ input[type="radio"]:checked{
     height: 38px;
     width: 200px;
     margin-left: 5px;
+    padding-left: 10px;
+    font-family: 'Noto Sans TC';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    color: #666666;
 }
 
 .book_where_site{
     height: 200px;
+    display: flex;
+    justify-content: center;
 }
 .book_where_site_img{
-    width: 100%;
+    width: 266px;
 }
 .book_info{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 80%;
     margin-left: 22px;
+    margin-bottom: 22px;
 }
 .book_info_name{
     font-family: 'Noto Sans TC';
@@ -731,31 +814,45 @@ input[type="radio"]:checked{
     font-weight: 700;
     font-size: 16px;
     color: #448899;
+    width: 100%;
+    display: flex;
+    margin-bottom: 20px;
+    margin-top: 5px;
 }
 .book_info_c{
-    font-family: 'Noto Sans TC';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 16px;
-    color: #666666;
-    margin-top: 20px;
+font-family: 'Noto Sans TC';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+color: #666666;
+display: flex;
+
 }
+.book_info_c_i{
+    margin-top: 15px;
+
+font-family: 'Noto Sans TC';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+color: #666666;
+}
+.book_info_cc{
+font-family: 'Noto Sans TC';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+display: flex;
+color: #666666;
+}
+
 .book_info_d{
     margin-top: 24px;
 }
-.book_info_c_i{
-    font-family: 'Noto Sans TC';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    color: #666666;
-    margin-top: 15px;
-}
-
-
 .book_cancel{
     height: 30px;
     width: 30px;
+    cursor: pointer;
 
 }
 .boorder{

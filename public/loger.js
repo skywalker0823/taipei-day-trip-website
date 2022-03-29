@@ -65,12 +65,6 @@ function getCookie(name) {
 document.addEventListener("load", iden())
 //window onload
 async function iden(){
-  // const data = await fetch('/api/user');
-  // const result = await data.json();
-  // if(result){
-  //   //這裏已是整套的個人資料有登入者拿到資料 無登入者拿到{'data':null}
-  //   console.log(result)
-  // }else{throw new Error(result)}
   const options = {
     method: 'GET',
     credentials: 'same-origin',
@@ -78,6 +72,7 @@ async function iden(){
       'X-CSRF-TOKEN': getCookie('csrf_access_token'),
     },
   };
+  //是否能判斷cookie empty連請求都可以不發送
   const response = await fetch('/api/user', options);
   const result = await response.json();
   if(result.data==null){
@@ -85,7 +80,16 @@ async function iden(){
   }else{
     tager.innerHTML="登出系統";
     tager.setAttribute("onclick","logout()")
-    
+    let user_mail=result.data.email
+    let user_id=result.data.id
+    let user_name=result.data.name
+    console.log("使用者豬料:", user_mail,user_id,user_name);
+    //將此資料貼至畫面中 並且隱藏起來 此資料得以讓其他程式取用
+    let who=document.getElementById('book_name');
+    if(who){
+    who.appendChild(document.createTextNode(user_name));
+    }else{}
+
   }
 }
 
@@ -158,7 +162,22 @@ async function logout(){
   }
 }
 
-//View
 
+async function to_book(){
+  const options = {
+    method: "GET",
+    credentials: "same-origin",
+    headers: {
+      "X-CSRF-TOKEN": getCookie("csrf_access_token"),
+    },
+  };
+  //是否能判斷cookie empty連請求都可以不發送
+  const response = await fetch("/api/user", options);
+  const result = await response.json();
+  if(result.data==null){
+    console.log('使用者尚未登入',result)
+    loger_on()
+  }else{window.location.replace("../booking")}
+}
 
 
