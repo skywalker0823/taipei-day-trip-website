@@ -2,6 +2,7 @@
 
 //此處將處理 取得預約景點資料 get 與 刪除預約資料delete
 let fn = document.getElementById("find_no");
+let total_info
 async function booker(){
   //直接自資料庫fetch使用者所有行程 並且堆疊至主畫面
   const options = {
@@ -17,6 +18,7 @@ async function booker(){
   //並完成頁面渲染 務必減少使用innerHTML
   if (result.data) {
     console.log(result.data);
+    total_info=result.data
     fn.style.display="none"
   } else {
     console.log({ error: true, message: "查詢預定行程前請先登入" });
@@ -151,7 +153,7 @@ async function booker(){
   b_d.setAttribute("id","del_id="+true_id)
   b_d.setAttribute("onclick","del_trip(this.id)")
   b_d_img=document.createElement("img")
-  b_d_img.setAttribute("src","icon_delete.png")
+  b_d_img.setAttribute("src","../img/icon_delete.png")
   b_d.appendChild(b_d_img)
   //創建主要父親a_book並裝載之前元素完成
   abook=document.createElement("div")
@@ -206,17 +208,131 @@ render_price=()=>{
   }else{document.getElementById("book_foot").className="foot2"}
 }
 
-// switch_mode=()=>{
-//   let book_start=document.getElementById("book_start")
-//   let catalog=document.getElementById("catalog")
-//   if(book_start.className=="book"){
-//     book_start.className="book_ori"
-//     catalog.style.display="none"
-//     //原版
 
-//   }else{book_start.className="book"
-//   catalog.style.display="flex"
 
-//   //新版
-// }
-// }
+//金流處理
+TPDirect.setupSDK(
+  11327,
+  "app_whdEWBH8e8Lzy4N6BysVRRMILYORF6UxXbiOFsICkz0J9j1C0JUlCHv1tVJC",
+  "sandbox"
+);
+let fields = {
+  number: {
+    // css selector
+    element: "#card-number",
+    placeholder: "**** **** **** ****",
+  },
+  expirationDate: {
+    // DOM object
+    element: document.getElementById("card-expiration-date"),
+    placeholder: "MM / YY",
+  },
+  ccv: {
+    element: "#card-ccv",
+    placeholder: "ccv",
+  },
+};
+TPDirect.card.setup({
+  fields: fields,
+  styles: {
+    // Style all elements
+    input: {
+      color: "gray",
+    },
+    // Styling ccv field
+    "input.ccv": {
+      // 'font-size': '30px'
+    },
+    // Styling expiration-date field
+    "input.expiration-date": {
+      // 'font-size': '16px'
+    },
+    // Styling card-number field
+    "input.card-number": {
+      // 'font-size': '16px'
+    },
+    // style focus state
+    ":focus": {
+      color: "black",
+    },
+    // style valid state
+    ".valid": {
+      color: "green",
+    },
+    // style invalid state
+    ".invalid": {
+      color: "red",
+    },
+    // Media queries
+    // Note that these apply to the iframe, not the root window.
+    "@media screen and (max-width: 400px)": {
+      input: {
+        color: "orange",
+      },
+    },
+  },
+});
+
+
+
+//送出鍵
+document.getElementById("payConfirm").addEventListener("click",()=>{
+  //得到 TapPay Fields 卡片資訊的輸入狀態
+  const tappayStatus = TPDirect.card.getTappayFieldsStatus();
+  //檢查能否GET PRIME
+  if (tappayStatus.canGetPrime === false) {
+    console.log("信用卡資料有誤");
+    return null;
+  }
+  //GET PRIME
+  TPDirect.card.getPrime(async(result)=>{
+    console.log("GET PRIME:", result);
+    if (result.status !== 0) {
+      //GET PRIME Fail
+      console.log("get prime fail:", result.msg);
+      return null;
+    }
+    console.log("PRIME GET!");
+
+    //開始整理至後端的JSON資訊
+    //總金額
+    let confirm_price = document.getElementById("total_price").innerHTML;
+    //個人資料
+    let contact = {
+      name: document.getElementById("payName").value,
+      email: document.getElementById("payMail").value,
+      phone: document.getElementById("payPhone").value,
+    };
+
+    //旅途列表(含True_id)
+    console.log("旅途列表(含trueID)", total_info);
+
+    //整合
+    let summary = {
+      prime: result.card.prime,
+      order: {
+        t_price: confirm_price,
+        trip: total_info,
+        contact: contact,
+      },
+    };
+    console.log("POST最終狀態", summary);
+    //fetch POST
+    let options = {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        "X-CSRF-TOKEN": getCookie("csrf_access_token"),
+      },
+      body: JSON.stringify(summary),
+    };
+    const response = await fetch("../api/orders", options);
+    const order_result = await response.json();
+    console.log(order_result);
+    //至此 orders訂單已刪除，然而多了已付pay資料庫訂單
+    //訂單編號number為核心資料 務必讓使用者記住
+    //將使用者導向感謝頁面 並加上?number=訂單編號
+
+    window.location.replace("../thankyou?number="+order_result.data.number)
+  })
+})

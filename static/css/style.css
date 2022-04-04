@@ -73,7 +73,7 @@ input{
     width: 16px;
     right: 20px;
     top: 30px;
-    background: url("icon_close.png");
+    background: url("../img/icon_close.png");
     cursor: pointer;
 
 }
@@ -272,7 +272,7 @@ input{
     width: 60px;
     height: 46px;
     background: #448899;
-    background-image: url(icon_search.png);
+    background-image: url(../img/icon_search.png);
     background-repeat: no-repeat;
     border: none;
     border-radius: 0px 5px 5px 0px;
@@ -452,12 +452,12 @@ a{
 #roll_l{
     width: 36px;
     height: 36px;
-    background-image: url("btn_leftArrow.png");
+    background-image: url("../img/btn_leftArrow.png");
 }
 #roll_r{
     width: 36px;
     height: 36px;
-    background-image: url("btn_rightArrow.png");
+    background-image: url("../img/btn_rightArrow.png");
 }
 .roller_box{
     height: 90%;
@@ -658,7 +658,7 @@ input[type="radio"]:checked{
     .book_where_site_img{width: 96% !important;}
 }
 ::-webkit-calendar-picker-indicator {
-    background-image: url("icon_calendar.png");
+    background-image: url("../img/icon_calendar.png");
 }
 
 .input_d{
@@ -893,4 +893,60 @@ color: #666666;
     font-weight: 700;
     font-size: 16px;
     color: #666666;
+}
+
+.book_info_c_i2{
+    margin-top: 15px;
+
+font-family: 'Noto Sans TC';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+color: #666666;
+display: flex;
+align-items: center;
+}
+
+.tk_order{
+    margin-top: 40px;
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Noto Sans TC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    color: #666666;
+}
+.uni_id{
+    font-style:italic;
+    font-weight: 900;
+}
+.tk_list{
+    display: flex;
+    justify-content: flex-start;
+    max-width: 1000px;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    justify-content: space-around;
+}
+.tk_site{
+    object-fit: cover;
+    display: flex;
+    height: 150px;
+    border-radius: 5px;
+    transition: all 0.3s;
+    border: 1px solid rgba(138, 138, 138, 0.5);
+    margin: 15px;
+    width: 100%;
+}
+.tk_site_info{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 80%;
+    margin: 22px;
+    text-align: center;
 }
