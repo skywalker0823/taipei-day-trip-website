@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="../style.css"/>
+    <link rel="stylesheet" href="../css/style.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Booking</title>
 </head>
@@ -70,9 +70,9 @@
         <div class="book_detail_i">
             <div class="book_welc">您的聯絡資訊</div>
                 <div class="book_info_d">
-                    <div class="book_info_c_i">聯絡姓名 :<input class="book_input" type="text"></div>
-                    <div class="book_info_c_i">聯絡信箱 :<input class="book_input" type="email"></div>
-                    <div class="book_info_c_i">手機號碼 :<input class="book_input" type="tel"></div>
+                    <div class="book_info_c_i">聯絡姓名 :<input class="book_input" type="text" id="payName"></div>
+                    <div class="book_info_c_i">聯絡信箱 :<input class="book_input" type="email" id="payMail"></div>
+                    <div class="book_info_c_i">手機號碼 :<input class="book_input" type="tel" id="payPhone"></div>
                 </div>
             <div class="book_detail_memo">請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</div>
         </div>
@@ -81,27 +81,58 @@
     <section class="book_detail">
         <div class="book_detail_i">
             <div class="book_welc">信用卡付款資訊</div>
-            <div class="book_info_d">
+
+
+
+
+            <!-- <div class="book_info_d">
+
                 <div class="book_info_c_i">卡片號碼 :<input class="book_input" id="ccn" type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number" maxlength="19" placeholder="**** **** **** ****"></div>
+
                 <div class="book_info_c_i">過期時間 :<input class="book_input" type="text" placeholder="MM/YY"></div>
                 <div class="book_info_c_i">驗證密碼 :<input class="book_input" type="number" placeholder="CVV"></div>
-            </div>
+            </div> -->
+    <div class="book_info_d">
+        <div class="book_info_c_i2">卡片號碼 :<div class="book_input" id="card-number"></div></div>
+        <div class="book_info_c_i2">過期時間 :<div class="book_input" id="card-expiration-date"></div></div>
+        <div class="book_info_c_i2">驗證密碼 :<div class="book_input" id="card-ccv"></div></div>    
+    </div>
+
+
         </div>
     </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="boorder"></div>
 <div class="confirm">
     <div style="margin-top: 43px;">
         <div class="confirm_fee">總價:新台幣<span id="total_price">0</span>元</div>
-        <input type="button" value="確認訂購並付款" class="tc"></input>
+        <input type="button" id="payConfirm" value="確認訂購並付款" class="tc"></input>
 
     </div>
 </div>
-
 </div>
 
 
+
+
 <footer class="foot3" id="book_foot">COPYRIGHT © 2021 台北一日遊</footer>
-<script type="text/javascript" src="../book.js"></script>
-<script type="text/javascript" src="../loger.js"></script>
+<script src="https://js.tappaysdk.com/tpdirect/v5.8.0"></script>
+<script type="text/javascript" src="../js/book.js"></script>
+<script type="text/javascript" src="../js/loger.js"></script>
 </body>
 </html>
