@@ -3,8 +3,18 @@ from dbutils.pooled_db import PooledDB
 import sys, traceback
 import ast
 from flask import request
+import os
+from dotenv import load_dotenv
+from datetime import datetime
+#日期檢查用
+from dateutil.parser import parse
+#DB密碼config
+# from config import Config_AWS
+# from instance import config
+# password=Config_AWS.DB_PASS
+# password=config.DB_PASS
 
-
+load_dotenv()
 POOL = PooledDB(
     creator=pymysql,  # Which DB module to use
     maxconnections=6,  # Allowed max connection, 0 and None means no limitations.
@@ -15,7 +25,7 @@ POOL = PooledDB(
     host='127.0.0.1',
     port=3306,
     user='root',
-    password="",
+    password=os.getenv("DB_PASS"),
     database='website',
     charset='utf8',
     cursorclass=pymysql.cursors.DictCursor
@@ -92,6 +102,15 @@ class Pay:
             except:
                 return
         return
+    def get_all(user_id):
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute("""SELECT uniq_id,total_price,attractions,contacts,status FROM pay WHERE user_id=%s""",(user_id,))
+                result=cursor.fetchall()
+                connection.commit()
+                return result
+        except:
+            print("get all error")
 
 
 
@@ -149,6 +168,36 @@ class Member:
             except Exception as e:
                 print("type error: " + str(e))
                 print(traceback.format_exc())
+
+        elif att=="PUT":
+            if name:
+                try:
+                    with connection.cursor() as cursor:
+                        print(name,acc)
+                        got=cursor.execute("""UPDATE member SET name=%s WHERE username=%s""",(name,acc))
+                        connection.commit()
+                        if got!=0:
+                            return "ok"
+                        else:
+                            return "error"
+                except Exception as e:
+                    print("type error: " + str(e))
+                    print(traceback.format_exc())
+            elif pss:
+                try:
+                    with connection.cursor() as cursor:
+                        print(pss,acc)
+                        got=cursor.execute("""UPDATE member SET password=%s WHERE username=%s""",(pss,acc))
+                        connection.commit()
+                        if got!=0:
+                            return "ok"
+                        else:
+                            return "error"
+                except Exception as e:
+                    print("type error: " + str(e))
+                    print(traceback.format_exc())
+            else:
+                print("db change profile failure")
         else:
             print('att cannot defined')
 
@@ -254,21 +303,40 @@ class Book:
                 id=cursor.fetchone()
                 connection.commit()
                 data=request.get_json()
+                #{ attractionId: site, date: date, time: time,price:price }
                 site=data["attractionId"]
-                date=data["date"]
-                de=data["price"]
-                meta=site+"_"+date+"_"+de
-                # 進訂單資料庫=會員id 景點預定資料
-                with connection.cursor() as cursor:
-                    result=cursor.execute(
-                        """INSERT INTO
-                        orders(
-                            id,
-                            product)
-                        VALUES(%s,%s)
-                        """,(id["id"],meta))
-                    connection.commit()
-                    return ({"ok":True})
+                date=data["date"]#必須是今天之後
+
+                #日期檢查區-格式滿足&日期需>=今日
+                parse(date)
+                dateformatter="%Y-%m-%d"
+                checker=datetime.strptime(date,dateformatter)
+                today=datetime.now()
+
+                if checker>=today:
+                    cost=data["price"]
+                    print(date,cost)#2022-04-21 2500
+                    if cost=="2500" or cost=="2000":
+                        if site!="" and date!="":
+                            print("book pass")
+                            meta=site+"_"+date+"_"+cost
+                            # 進訂單資料庫=會員id 景點預定資料
+                            with connection.cursor() as cursor:
+                                result=cursor.execute(
+                                    """INSERT INTO
+                                    orders(
+                                        id,
+                                        product)
+                                    VALUES(%s,%s)
+                                    """,(id["id"],meta))
+                                connection.commit()
+                                return ({"ok":True})
+                        else:
+                            return ({"error":"book_post input error"})
+                    else:
+                        return ({"error":"input COST error"})
+                else:
+                    return({"error":"date is not allowed"})
         except Exception as e:
                 print("type error: " + str(e))
                 print(traceback.format_exc())

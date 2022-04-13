@@ -25,6 +25,7 @@ def booker():
         finally:
             print("Booking!")
 
+
     elif request.method=="POST":
         try:
             print("post!")
@@ -34,6 +35,7 @@ def booker():
         except:
             return jsonify({"error":True,"message":"建立行程失敗"})
 
+            
     elif request.method=="DELETE":
         try:
             data=request.get_json()

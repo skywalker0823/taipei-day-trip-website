@@ -273,16 +273,74 @@ TPDirect.card.setup({
   },
 });
 
+reminder=(target)=>{
+    target.style.borderColor = "red";
+    setTimeout(() => {
+      target.style.borderColor = "#E8E8E8";
+    }, 500);
+    return null;
+}
 
+let p_name = document.getElementById("payName");
+let p_mail = document.getElementById("payMail");
+let p_tel = document.getElementById("payPhone");
+let card_number=document.getElementById("card-number");
+let card_exp=document.getElementById("card-expiration-date")
+let card_ccv=document.getElementById("card-ccv")
 
 //送出鍵
 document.getElementById("payConfirm").addEventListener("click",()=>{
   //得到 TapPay Fields 卡片資訊的輸入狀態
   const tappayStatus = TPDirect.card.getTappayFieldsStatus();
+  const mail_format =
+  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+  //個資檢查
+  // let p_name=document.getElementById("payName");
+  // let p_mail=document.getElementById("payMail");
+  // let p_tel = document.getElementById("payPhone");
+
+  if(p_name.value.length==0){
+    reminder(p_name);
+    return null
+  }else if (p_mail.value.length == 0){
+    reminder(p_mail);
+    return null
+  }else if(p_tel.value.length == 0){
+    reminder(p_tel);
+    return null
+  }
+    if (p_mail.value.match(mail_format)) {
+      console.log("mail pass");
+    } else {
+      console.log("mail denied");
+      p_mail.style.borderColor="red"
+
+    p_mail.style.borderColor = "red";
+    setTimeout(() => {
+      p_mail.style.borderColor = "#E8E8E8";
+    }, 500);
+    return null;
+    }
+
+
+
+
+
+
+let card_number = document.getElementById("card-number");
+let card_exp = document.getElementById("card-expiration-date");
+let card_ccv = document.getElementById("card-ccv");
+
+
+
+
   //檢查能否GET PRIME
   if (tappayStatus.canGetPrime === false) {
-    console.log("信用卡資料有誤");
-    return null;
+    reminder(card_number);
+    reminder(card_exp);
+    reminder(card_ccv)
+    return
   }
   //GET PRIME
   TPDirect.card.getPrime(async(result)=>{
@@ -299,9 +357,9 @@ document.getElementById("payConfirm").addEventListener("click",()=>{
     let confirm_price = document.getElementById("total_price").innerHTML;
     //個人資料
     let contact = {
-      name: document.getElementById("payName").value,
-      email: document.getElementById("payMail").value,
-      phone: document.getElementById("payPhone").value,
+      name: p_name.value,
+      email: p_mail.value,
+      phone: p_tel.value,
     };
 
     //旅途列表(含True_id)

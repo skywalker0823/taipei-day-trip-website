@@ -1,6 +1,9 @@
 //接收到頁面HTML載入後，執行fetch取得API單一景點資料
 //先假設這邊會拿到照片陣列 及資訊 以JS方式將圖片及html以外資料加上
-
+let tomorrow = new Date();
+tomorrow.setDate(tomorrow.getDate() + 1);
+tomorrow=tomorrow.toISOString().split("T")[0]
+document.getElementsByName("dater")[0].setAttribute("min", tomorrow);
 
 let counter=1
 function attr(){
@@ -152,7 +155,7 @@ async function confirm(){
     console.log("日期要填拉")
     // order_data.classList.remove("input_d")
     // order_data.classList.add("input_e")
-    order_data.style.background = "rgb(207 69 69)";
+    order_data.style.background = "#448899";
     setTimeout(() => {
       order_data.style.background="white"
     }, 500);

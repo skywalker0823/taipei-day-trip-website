@@ -15,16 +15,46 @@ input{
     padding-left:5px;
 }
 
-/* .world{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(128,128,128,0.5); 
-    display: none; 
-    z-index: 999;
-} */
+
+
+.lds-ring {
+  display: none;
+  justify-content: center;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin-bottom: 20px;
+}
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid #cef;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #cef transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .mask{
     position: absolute;
     width: 100%;
@@ -173,6 +203,10 @@ input{
     justify-content: space-between;
     align-items: flex-start;
     padding: 10px;
+    background-color: white;
+}
+.b_b:hover{
+    border-bottom: 1px solid #448899;
 }
 .bb{
     font-family: Noto Sans TC;
@@ -310,7 +344,13 @@ img{
     flex-direction: column;
     border: 1px solid rgba(138, 138, 138, 0.5);
     border-radius: 5px;
-    transition: all 0.3s ease-out;
+    transition: all 0.3s ease;
+}
+.box:hover{
+    box-shadow: 8px 8px 3px grey;
+    position: relative;
+    bottom: 2px;
+    right: 2px;
 }
 .name_here{
     font-family: Noto Sans TC;
@@ -344,6 +384,8 @@ img{
 }
 .sec1{
     display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 @media (min-width:600px) and (max-width:1199px){/*600~1200px*/
     .flex{max-width: 100%;}
@@ -379,6 +421,11 @@ img{
     .srh_bar{width: 70%;}
     .sec1{margin-top: -150px;}
     .home_title{margin: 5px;}
+    .member_info{font-size: 15px;}
+    .member_order{font-size: 15px;}
+    .order_list_bar{font-size: 16px;}
+    .ol1{font-size: 12px;}
+    .ol2{font-size: 10px;}
 }
 .foot{
     background: #757575;
@@ -446,18 +493,29 @@ a{
     justify-content: space-between;
     position: relative;
     top:50%;
-    opacity: 0.75;
     align-self:stretch;
 }
 #roll_l{
     width: 36px;
     height: 36px;
+    opacity: 0.3;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
     background-image: url("../img/btn_leftArrow.png");
 }
 #roll_r{
     width: 36px;
     height: 36px;
+    opacity:0.3;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
     background-image: url("../img/btn_rightArrow.png");
+}
+#roll_l:hover{
+    opacity: 0.8;
+}
+#roll_r:hover{
+    opacity: 0.8;
 }
 .roller_box{
     height: 90%;
@@ -571,6 +629,7 @@ input[type="radio"]{
     height: 20px;
     border-radius: 50%;
     border: 2px #FFFFFF;
+    cursor: pointer;
 }
 input[type="radio"]:checked{
     background: #448899;
@@ -592,6 +651,10 @@ input[type="radio"]:checked{
     font-size: 19px;
     line-height: 16px;
     cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+.tc:hover{
+    box-shadow:4px 4px 1px #666666;
 
 }
 .border{
@@ -667,6 +730,7 @@ input[type="radio"]:checked{
     background-color: white;
     border: none;
     transition: all 1s;
+    cursor: pointer;
 
 }
 .foot2{
@@ -687,13 +751,13 @@ input[type="radio"]:checked{
     justify-content: center;
     align-items: center;
 
-    position: absolute;
+
     bottom: 0px;
     width: 100%;
 }
 
 .site_pics{
-    transition: opacity 0.5s;
+    transition: all 0.3s ease-in-out;
 }
 
 /* ---Booking--- */
@@ -765,6 +829,15 @@ display: flex;
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
+    transition: all 0.5s ease;
+    position: relative;
+    border-radius: 5px;
+}
+.a_book:hover{
+    box-shadow: 8px 8px 3px grey;
+    position: relative;
+    bottom: 2px;
+    right: 2px;
 }
 .booker{
     display: flex;
@@ -789,6 +862,7 @@ display: flex;
     font-weight: 700;
     font-size: 16px;
     color: #666666;
+    transition: all 0.3s ease-out;
 }
 
 .book_where_site{
@@ -922,6 +996,7 @@ align-items: center;
 .uni_id{
     font-style:italic;
     font-weight: 900;
+    cursor: copy;
 }
 .tk_list{
     display: flex;
@@ -949,4 +1024,199 @@ align-items: center;
     width: 80%;
     margin: 22px;
     text-align: center;
+}
+.member{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    max-width: 500px;
+    margin: 0 auto;
+    /* box-shadow: 8px 8px 3px grey;
+    border: #CCCCCC solid 1px; */
+    margin-top: 30px;
+
+}
+.member_welc{
+    display: flex;
+    font-family: 'Noto Sans TC';
+    font-style: normal;
+    font-size: 19px;
+    color: #666666;
+    max-width: 1000px;
+    margin: 0 auto;
+    margin-top: 35px;
+    padding-left: 10px;
+}
+.card{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.card0{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    margin-left: 15px;
+    text-align: center;
+    height: 100%;
+}
+.cardIn{
+    display: flex;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-family: 'Noto Sans TC';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    color: #666666;
+    align-items: center;
+    height: 30px;
+}
+.cardIn2{
+    display: flex;
+    margin: 15px;
+    font-family: 'Noto Sans TC';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    color: #666666;
+    align-items: center;
+    justify-content: center;
+}
+.pastOrder{
+    display:none;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1000px;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+.memberLogout{
+    margin: 20px;
+    background: #448899;
+    border-radius: 5px;
+    border: 0px;
+    padding: 10px;
+    width: 154px;
+    height: 36px;
+    color: #FFFFFF;
+    font-family: 'Noto Sans TC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 19px;
+    line-height: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+.member_info{
+    cursor: pointer;
+    margin-top: 15px;
+    border-bottom: 1px solid #ffffff;
+    transition: border 0.5s;
+
+}
+.member_info:hover{
+    border-bottom: 1px solid #448899;
+}
+.member_order{
+    margin-left: 30px;
+    cursor: pointer;
+    margin-top: 15px;
+    border-bottom: 1px solid #ffffff;
+    transition: border 0.5s;
+
+}
+.member_order:hover{
+    border-bottom: 1px solid #448899;
+}
+
+.book_input_2{
+    background: #FFFFFF;
+    border: 1px solid #E8E8E8;
+    box-sizing: border-box;
+    border-radius: 5px;
+    height: 38px;
+    width: 200px;
+    padding-left: 10px;
+    font-family: 'Noto Sans TC';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    color: #666666;
+    transition: all 0.3s ease-out;
+}
+.boorder2{
+    max-width: 1000px;
+    border: 1px solid rgb(194, 192, 192);
+    border-top: 1px;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+.order_list{
+    width: 100%;
+}
+.order_list_bar{
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Noto Sans TC';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    color: #666666;
+    margin-top: 15px;
+}
+.one_order{
+    display:  flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    min-height: 30px;
+}
+.order_pic{
+    object-fit:cover;
+    max-height: 30px;
+    max-width: 100%;
+    overflow:auto;
+    margin-top: 5px;
+}
+.ol1{
+    width: 10%;
+    text-align: center;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    font-family: 'Noto Sans TC';
+    font-style: normal;
+    font-weight: 600;
+    color: #666666;
+}
+.ol2{
+    width: 10%;
+    text-align: center;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    font-family: 'Noto Sans TC';
+    font-style: normal;
+    font-weight: 400;
+    color: #666666;
+    transition: all 0.3s;
+}
+.ol2:hover{
+    border-bottom: 0.5px solid #448899;
+}
+.tip_tag{
+    font-size: 8px;
+    font-weight: 400;
+    align-self: flex-end;
+    padding-bottom: 3px;
+    margin-left: 5px;
 }
