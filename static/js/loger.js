@@ -7,6 +7,10 @@ let tager=document.getElementById('tager');
 let err_l=document.getElementById('err_login');
 let err_s=document.getElementById('err_signup');
 const mail_format = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+member_page = () => {
+  window.location.href = "/member";
+};
+
 switcher=(s)=>{
   if(s=="signup_sw"){
     loger.style.display="none";
@@ -62,6 +66,9 @@ function getCookie(name) {
   if (parts.length === 2) return parts.pop().split(';').shift();
 }
 
+let user_mail
+let user_id
+let user_name
 document.addEventListener("load", iden())
 //window onload
 async function iden(){
@@ -77,14 +84,26 @@ async function iden(){
   const result = await response.json();
   if(result.data==null){
     console.log('使用者尚未登入',result)
+    //如果當下在member 則導回首頁
+    if(window.location.pathname=="/member"){
+      window.location.href="../"
+    }
   }else{
-    tager.innerHTML="登出系統";
-    tager.setAttribute("onclick","logout()")
-    let user_mail=result.data.email
-    let user_id=result.data.id
-    let user_name=result.data.name
-    console.log("使用者豬料:", user_mail,user_id,user_name);
+    tager.innerHTML="會員管理";
+    tager.setAttribute("onclick","member_page()")
+    user_mail=result.data.email
+    user_id=result.data.id
+    user_name=result.data.name
+    console.log("使用者豬料:", result.data);
     //將此資料貼至畫面中 並且隱藏起來 此資料得以讓其他程式取用
+    if(window.location.pathname=="/member"){
+      //將畫面呈現出來
+      console.log("at member!")
+      document.getElementById("cardName").innerHTML=user_name
+      document.getElementById("cardMail").innerHTML=user_mail
+      document.getElementById("cardId").innerHTML=user_id
+      return
+    }
     let who=document.getElementById('book_name');
     if(who){
     who.appendChild(document.createTextNode(user_name));
@@ -156,7 +175,7 @@ async function logout(){
   const result = await this.linkin(acc,'none','none','DELETE')
   if(result.ok){
     console.log("登出成功")
-    window.location.reload();
+    window.location.href="/";
   }else{
     console.log('これは、ゲームであっても遊びではない')
   }

@@ -2,6 +2,11 @@
 
 let next;
 let words;
+let loading = document.getElementById("lds-ring");
+let load_count=0
+let wait_box=[]
+let confirm=0
+
 function site_in(){
   fetch('/api/attractions?page=0')
   .then(function(response) {
@@ -10,6 +15,9 @@ function site_in(){
   .then(function(datas){
     next=datas.nextPage
     let data=datas.data//這裡是景點12陣列
+
+    load_target=data.length
+
     for(site of data){
       // console.log(site["id"],site["name"],site["images"][0],site["mrt"],site["category"])
       //圖片
@@ -53,18 +61,44 @@ function site_in(){
       pic_in.appendChild(box).appendChild(name_here).appendChild(site_name);
       pic_in.appendChild(box).appendChild(infos).appendChild(info1).appendChild(info1i);
       pic_in.appendChild(box).appendChild(infos).appendChild(info2).appendChild(info2i);
+
+
+
+      wait_box.push(box.id);
+      if (pic_here.addEventListener) {
+        pic_here.addEventListener("load", () => {
+          load_count += 1;
+          if (load_count == load_target) {
+            console.log("OK!");
+            for(a_id of wait_box){
+              document.getElementById(a_id).style.display="flex"
+            }
+            loading.style.display = "none";
+            confirm=1
+          };
+        });
+      }
+      loading.style.display = "flex";
+      document.getElementById(box.id).style.display = "none";
+
+
+
+
     };
   })
 };
 
 
 function more(id="page="+next,keywords="&keyword="+words){
+  confirm=0
   console.log("more!",words,"next!:",next)
   if(words==undefined){words=""};
   // keyw=document.getElementById("s_bar").value;
-
+  load_count = 0;
   //---ckecking---
-  if(next==null || next==0){return null};
+  if(next==null || next==0){
+    return null;
+  };
 
   // keywords="&"+"keyword="+keyw;
   fetch('/api/attractions?'+id+keywords)
@@ -74,6 +108,10 @@ function more(id="page="+next,keywords="&keyword="+words){
   .then(function(datas){
     next=datas.nextPage
     let data=datas.data;//這裡是景點12陣列
+
+    wait_box=[]
+    load_target = data.length;
+
     // document.getElementById(id).id="page="+next;
     for(site of data){
       // console.log(site["id"],site["name"],site["images"][0],site["mrt"],site["category"])
@@ -118,20 +156,44 @@ function more(id="page="+next,keywords="&keyword="+words){
       pic_in.appendChild(box).appendChild(name_here).appendChild(site_name);
       pic_in.appendChild(box).appendChild(infos).appendChild(info1).appendChild(info1i);
       pic_in.appendChild(box).appendChild(infos).appendChild(info2).appendChild(info2i);
+
+      wait_box.push(box.id);
+      if (pic_here.addEventListener) {
+        pic_here.addEventListener("load", () => {
+          load_count += 1;
+          // console.log(wait_box)
+          if (load_count == load_target) {
+            console.log("OK!");
+            for (a_id of wait_box) {
+              document.getElementById(a_id).style.display = "flex";
+            }
+            // load_target-=load_count
+            confirm=1
+            loading.style.display = "none";
+          }
+        });
+      }
+      loading.style.display = "flex";
+      document.getElementById(box.id).style.display = "none";
     };
+
   })
 };
 
 
 window.addEventListener('scroll', () => {
   if(window.scrollY + window.innerHeight >= document.documentElement.scrollHeight){
-    console.log("scrolled and more!")
-    more();
+    if(confirm==0){
+      return
+    }
+    console.log("scrolled and more!");
+      more();
   }
 });
 
 
 function search(){
+  confirm=1
   console.log("search!")
   next=0;
   document.getElementById("pic_in").innerHTML=""

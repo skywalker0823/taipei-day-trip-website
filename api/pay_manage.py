@@ -4,7 +4,7 @@ import os
 from modules.db import Pay
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import get_jwt_identity
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
 from datetime import date
 import random
 import requests,json
@@ -12,8 +12,8 @@ import ast
 
 pay_manage = Blueprint('pay_manage',__name__,template_folder="templates")
 
-# load_dotenv()
-partner_key="partner_6ID1DoDlaPrfHw6HBZsULfTYtDmWs0q0ZZGKMBpp4YICWBxgK97eK3RM"
+load_dotenv()
+partner_key=os.getenv("partner_key")
 
 
 #建立訂單POST
@@ -28,6 +28,15 @@ def order():
             #自前端取得資料 並且主動至tappay比對訊息
             data=request.get_json()
             contacts=data["order"]["contact"]
+            print("contact: ",contacts)
+            if "@" not in contacts["email"]:
+                return jsonify({"error":"email invalid"})
+            if contacts["name"]=="" or contacts["phone"]=="":
+                return jsonify({"error":"contact data invalid"})
+            try:
+                int(contacts["phone"])
+            except:
+                return jsonify({"error":"phone invalid"})
             to_tappay={
                 "prime":data["prime"],
                 "partner_key":partner_key,
@@ -101,11 +110,27 @@ def order():
 def order_get(orderNumber):
     try:
         if request.method=="GET":
-            #依據訂單號碼回傳查詢的訂單
-            #抓路徑尾編號為查詢依據
+            if orderNumber=="all":
+                who=get_jwt_identity()
+                user_id=who["id"]
+                data=Pay.get_all(user_id)
+
+
+                summary=[]
+                for site in data:
+                    uniq_id=site["uniq_id"]
+                    total=site["total_price"]
+                    attractions=ast.literal_eval(site["attractions"])
+                    contact=ast.literal_eval(site["contacts"])
+                    status=site["status"]
+                    summary.append({"uniq_id":uniq_id,"total":total,"attraction":attractions,"contact":contact,"status":status})
+                return jsonify(summary)
+
+
+
+
 
             data=Pay.check_order(orderNumber)
-            #此data為一龐大混合資料
             print("GET PAY",data)
             summary={
                 "data":{

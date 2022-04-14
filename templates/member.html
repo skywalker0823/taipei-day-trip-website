@@ -1,14 +1,17 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css"/>
-
-    <title>My Website</title>
+    <link rel="icon" href="data:,">
+    <title>Member</title>
 </head>
-<body onload="site_in()">
+<body onload="member()">
+
     <div class="mask" id="mask"></div>
+
     <div class="loger" id="loger">
         <div class="loger_cap"></div>
         <div class="loger_main">
@@ -35,9 +38,6 @@
             <p class="login_main_q" id="login_sw" onclick="switcher(this.id)">已經有帳戶了?點此登入</p>
         </div>
     </div>
-
-
-
     <nav class="nav">
         <div class="innr_nav">
         <a href="/" class="home_title">台北一日遊</a>
@@ -50,41 +50,46 @@
             </div>
         </div>
     </nav>
-    <div class="hero">
-        <div class="true_hero">
-        <div class="slogan">
-            <div class="slg_div">
-                <div class="slg_innr">
-                    <p class="sl_2">輕鬆享受台北一日悠閒</p>
-                    <p class="sl_1">探索每個角落，體驗城市的深度旅遊行程</p>
-                </div>
-                <div class="srh">
-                    <div class="srh_innr">
-                        <input type="search" class="srh_bar" id="s_bar" placeholder="輸入景點名稱查詢"></input>
-                        <input type="button" class="srh_btn" onclick="search()"></input>
-                    </div>
-                </div> 
+
+
+
+
+
+<nav class="member_welc">
+    <div class="member_info" id="member_info" onclick="openInfo()">基本資料</div>
+    <div class="member_order" id="member_order" onclick="openOrder()">訂單資訊</div>
+    <div class="member_order">其他設定</div>
+    <div class="member_order">關於我們</div>
+</nav>
+<div class="boorder2"></div>
+
+
+        <div class="member" id="member_card">
+            <div class="card0">
+                <div class="cardIn"><p class="cata_2">會員編號:</p><p class="book_info_c" id="cardId"></p></div>
+                <div class="cardIn" id="cardName_father"><p class="cata_2">會員姓名:</p><p class="book_info_c" id="cardName"></p></div>
+                <div class="cardIn"><p class="cata_2">會員信箱:</p><p class="book_info_c" id="cardMail"></p></div>
+                <div class="cardIn"><p class="cata_2">變更密碼:</p><input class="book_input_2" id="cardpass" placeholder="請輸入新密碼"></input></div>
+                
+            </div>
+<input type="button" value="登出" class="memberLogout" onclick="logout()"></input>
+
+        </div>
+        <div class="pastOrder" id="order_card">
+            <div class="card" id="card">
+                <div class="cardIn2"><p class="cata_2">訂單查詢</p></div>
+                <input class="book_input_2" id="book_input_2" placeholder="請輸入訂單編號">
+                <button class="memberLogout" id="order_find">送出</button>
+                <div class="cardIn2"><p class="cata_2">歷史訂單</p></div>
             </div>
         </div>
-        </div>
-    </div>
-    <div class="welc">
-        <img class="welc_i" src="img/welcome.png">
-    </div>
-    <section class="sec1">
+
+    
 
 
+<footer class="foot2" id="book_foot">COPYRIGHT © 2021 台北一日遊</footer>
 
-        <div class="flex" id="pic_in"></div>
-<div class="lds-ring" id="lds-ring"><div></div><div></div><div></div><div></div></div>
-    </section>
-    <fotter class="foot">
-        <div class="copy_r">COPYRIGHT © 2021 台北一日遊</div>
-    </fotter>
-        <!-- <div style="display: flex;justify-content: center;">
-            <button id="page" onclick="more(this.id)">more</button>
-        </div> -->
-    <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="js/member.js"></script>
     <script type="text/javascript" src="js/loger.js"></script>
 </body>
 </html>
