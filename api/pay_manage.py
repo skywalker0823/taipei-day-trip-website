@@ -13,19 +13,14 @@ import ast
 pay_manage = Blueprint('pay_manage',__name__,template_folder="templates")
 
 load_dotenv()
+
 partner_key=os.getenv("partner_key")
 
-
-#建立訂單POST
-#jwt中塞有使用者id及mail了
-#彙整資料庫所需資料 一次打進資料庫中
-#將會是一個很複雜的JSON
 @pay_manage.route("/api/orders",methods=["POST"])
 @jwt_required()
 def order():
     try:
         if request.method=="POST":
-            #自前端取得資料 並且主動至tappay比對訊息
             data=request.get_json()
             contacts=data["order"]["contact"]
             print("contact: ",contacts)
@@ -56,18 +51,14 @@ def order():
             #送出前資料檢查站
             if contacts["phone"]=="" or contacts["name"]=="" or contacts["email"]=="":
                 return jsonify({"error":True,"message":"個人資料不完整"})
-            #資料進資料庫
-            #應含有:0.使用者id 1.特殊時間訂單編號 2.總價格 3.景點們 4.聯絡方式 5.狀態碼1尚未付款
             who=get_jwt_identity()
             user_id=who["id"]
-            #時間加亂碼產生
             uniq_id=str(date.today().strftime('%Y%m%d'))+str(random.randint(1000,9999))
             total_price=data["order"]["t_price"]
-            attractions=data["order"]["trip"]#此項目是陣列 務必注意處理方式
-            contact=contacts#此項目為字典 注意處理方式
+            attractions=data["order"]["trip"]
+            contact=contacts
             status=1#0為已付款 1為待付款
             Pay.create_order(user_id,uniq_id,total_price,str(attractions),str(contact),status)
-
             #tappay request確認付款
             url="https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime"
             result=requests.post(url,headers={
@@ -105,6 +96,7 @@ def order():
     finally:
         print("order!")
 
+
 @pay_manage.route("/api/orders/<orderNumber>",methods=["GET"])
 @jwt_required()
 def order_get(orderNumber):
@@ -114,8 +106,6 @@ def order_get(orderNumber):
                 who=get_jwt_identity()
                 user_id=who["id"]
                 data=Pay.get_all(user_id)
-
-
                 summary=[]
                 for site in data:
                     uniq_id=site["uniq_id"]
@@ -125,11 +115,6 @@ def order_get(orderNumber):
                     status=site["status"]
                     summary.append({"uniq_id":uniq_id,"total":total,"attraction":attractions,"contact":contact,"status":status})
                 return jsonify(summary)
-
-
-
-
-
             data=Pay.check_order(orderNumber)
             print("GET PAY",data)
             summary={
