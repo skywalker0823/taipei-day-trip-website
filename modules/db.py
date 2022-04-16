@@ -6,7 +6,6 @@ from flask import request
 import os
 from dotenv import load_dotenv
 from datetime import datetime
-#日期檢查用
 from dateutil.parser import parse
 #DB密碼config
 # from config import Config_AWS
@@ -138,7 +137,6 @@ class Member:
                     elif got==1:
                         if pss==result['password']:
                             id=result['id']
-                            #應該一起放入使用者id
                             return ("ok",id)
                         else:
                             return "錯誤的密碼"
@@ -228,7 +226,6 @@ class Attraction:
                             final={"nextPage":int(ender)//12,"data":summary}
                             return final
             return ({"error":True,"message":"查無資料"})
-
     def attraction_no_key(page,ender):
         with connection.cursor(pymysql.cursors.DictCursor) as cursor:
             got=cursor.execute("""SELECT id,name,category2,description,address,transport,mrt,latitude,longitude,images FROM sites WHERE id>=%s AND id<=%s """,(page,ender+1))
@@ -315,7 +312,6 @@ class Book:
 
                 if checker>=today:
                     cost=data["price"]
-                    print(date,cost)#2022-04-21 2500
                     if cost=="2500" or cost=="2000":
                         if site!="" and date!="":
                             print("book pass")
