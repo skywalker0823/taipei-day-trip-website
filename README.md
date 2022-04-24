@@ -4,7 +4,7 @@ Taipei-day-trip is a travel booking website, including 50+ sites in the area of 
 Each site has it's own photos and imformations, and can make reservation & payment.
 
 ## Demo
-http://52.33.215.189/
+https://taipeidaytrip.fun/
 ### Test credit Card
 | - | - |
 | -------- | -------- |
