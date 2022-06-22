@@ -22,16 +22,16 @@ https://taipeidaytrip.fun/
 * TapPay
 ### Back-End
 * Python
-- Flask
+    * Flask
 * Authentication
-- JSON Wen Token(JWT)
+    * JSON Wen Token(JWT)
 * Cloud Services(Google Cloud Platform)
-- Compute Engine
-- SQL
-- LoadBalancing
-- Cloud DNS
+    * Compute Engine
+    * SQL
+    * LoadBalancing
+    * Cloud DNS
 * Database
-- MySQL
+    * MySQL
 
 ## Structure v1.0
 
