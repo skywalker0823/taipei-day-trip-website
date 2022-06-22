@@ -32,6 +32,7 @@ https://taipeidaytrip.fun/
     * Cloud DNS
 * Database
     * MySQL
+* NGINX
 
 ## Structure v1.0
 
@@ -41,5 +42,6 @@ https://taipeidaytrip.fun/
 ## Google Cloud Platform
 ![Untitled-2022-06-22-1621](https://user-images.githubusercontent.com/56625237/174984426-a6166b82-1be7-4f13-afc6-10c1446319dd.png)
 
-## Main Features
-* 
+## Contact
+Yang
+Email : skywalker0823@hotmail.com
