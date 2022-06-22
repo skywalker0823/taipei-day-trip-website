@@ -21,10 +21,10 @@ POOL = PooledDB(
     blocking=True,  # Queue when there is no connection avaliable. True = wait；False = No waits, and report error.
     ping=0, # Check if Mysql service is avaliable # if：0 = None = never, 1 = default = whenever it is requested, 2 = when a cursor is created, 4 = when a query is executed, 7 = always
 
-    host='127.0.0.1',
+    host=os.getenv("DB_host"),
     port=3306,
     user='root',
-    password=os.getenv("DB_PASS"),
+    password=os.getenv("DB_pass"),
     database='website',
     charset='utf8',
     cursorclass=pymysql.cursors.DictCursor

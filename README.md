@@ -3,7 +3,7 @@
 Taipei-day-trip is a travel booking website, including 50+ sites in the area of Taipei.
 Each site has it's own photos and imformations, and can make reservation & payment.
 
-## Demo
+## Website URL
 https://taipeidaytrip.fun/
 ### Test credit Card
 | - | - |
@@ -12,6 +12,26 @@ https://taipeidaytrip.fun/
 | Valid Date	 | 01 / 23 |
 | CVV	 | 123 |
 
+## Techniuqes
+### Front-End
+* HTML
+* CSS
+* JavaScript
+* RWD
+* AJAX
+* TapPay
+### Back-End
+* Python
+- Flask
+* Authentication
+- JSON Wen Token(JWT)
+* Cloud Services(Google Cloud Platform)
+- Compute Engine
+- SQL
+- LoadBalancing
+- Cloud DNS
+* Database
+- MySQL
 
 ## Structure v1.0
 
@@ -21,7 +41,5 @@ https://taipeidaytrip.fun/
 ## Google Cloud Platform
 ![Untitled-2022-06-22-1621](https://user-images.githubusercontent.com/56625237/174984426-a6166b82-1be7-4f13-afc6-10c1446319dd.png)
 
-
-## Features
-
-## 
+## Main Features
+* 
