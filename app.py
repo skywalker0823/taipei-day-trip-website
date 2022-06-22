@@ -1,4 +1,3 @@
-# from dotenv import load_dotenv
 from flask import *
 from flask import render_template as rt
 from api.att_manage import att_manage
@@ -40,13 +39,11 @@ def member():
 	return render_template("member.html")
 
 
-#未持token
 @jwt.unauthorized_loader
 def custom_unauthorized_response(err):
 	print("how?: ",err)
 	return jsonify({"data":None})
 	
-#持有token但過期
 @jwt.expired_token_loader
 def my_expired_token_callback(jwt_header, jwt_payload):
     return jsonify(code="XD", err="Token expired, please login again"), 401

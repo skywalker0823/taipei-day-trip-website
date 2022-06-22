@@ -1,4 +1,5 @@
-#會員系統
+
+
 from urllib import response
 from flask import Blueprint, jsonify, request, session
 from flask import current_app
@@ -15,12 +16,8 @@ from datetime import date, datetime
 from datetime import timedelta
 from datetime import timezone
 
-
 member_manage = Blueprint('member_manage',__name__,template_folder="templates")
 
-
-#會員系統-茶豬料
-#從session 斷定此使用者身份 並回傳該資訊
 @member_manage.route('/api/user',methods=['GET'])
 @jwt_required()
 def iden():
@@ -34,9 +31,6 @@ def iden():
 		print(traceback.format_exc())
 
 
-
-#會員系統-註冊
-#給予token 並要求重新登入
 @member_manage.route("/api/user",methods=['POST'])
 def signup():
 	try:
@@ -58,9 +52,6 @@ def signup():
 		print(traceback.format_exc())
 
 
-
-#會員系統-登入
-#確認token 返回姓名 與目前訂位狀況 以及ok 
 @member_manage.route("/api/user",methods=['PATCH'])
 def login():
 	try:
@@ -87,7 +78,6 @@ def login():
 		print(traceback.format_exc())
 
 
-#會員系統-更改
 @member_manage.route('/api/user',methods=['PUT'])
 @jwt_required()
 def alter():
@@ -122,7 +112,6 @@ def alter():
 		print(traceback.format_exc())
 
 
-#會員系統-登出
 @member_manage.route('/api/user',methods=['DELETE'])
 def logout():
 	try:
@@ -134,8 +123,6 @@ def logout():
 		print(traceback.format_exc())
 
 
-
-#refresh token
 @member_manage.after_request
 def refresh_expiring_jwts(response):
     try:

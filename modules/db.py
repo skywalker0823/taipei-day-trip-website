@@ -6,7 +6,6 @@ from flask import request
 import os
 from dotenv import load_dotenv
 from datetime import datetime
-#日期檢查用
 from dateutil.parser import parse
 #DB密碼config
 # from config import Config_AWS
@@ -22,10 +21,10 @@ POOL = PooledDB(
     blocking=True,  # Queue when there is no connection avaliable. True = wait；False = No waits, and report error.
     ping=0, # Check if Mysql service is avaliable # if：0 = None = never, 1 = default = whenever it is requested, 2 = when a cursor is created, 4 = when a query is executed, 7 = always
 
-    host='127.0.0.1',
+    host=os.getenv("DB_host"),
     port=3306,
     user='root',
-    password=os.getenv("DB_PASS"),
+    password=os.getenv("DB_pass"),
     database='website',
     charset='utf8',
     cursorclass=pymysql.cursors.DictCursor
@@ -138,7 +137,6 @@ class Member:
                     elif got==1:
                         if pss==result['password']:
                             id=result['id']
-                            #應該一起放入使用者id
                             return ("ok",id)
                         else:
                             return "錯誤的密碼"
@@ -228,7 +226,6 @@ class Attraction:
                             final={"nextPage":int(ender)//12,"data":summary}
                             return final
             return ({"error":True,"message":"查無資料"})
-
     def attraction_no_key(page,ender):
         with connection.cursor(pymysql.cursors.DictCursor) as cursor:
             got=cursor.execute("""SELECT id,name,category2,description,address,transport,mrt,latitude,longitude,images FROM sites WHERE id>=%s AND id<=%s """,(page,ender+1))
@@ -315,7 +312,6 @@ class Book:
 
                 if checker>=today:
                     cost=data["price"]
-                    print(date,cost)#2022-04-21 2500
                     if cost=="2500" or cost=="2000":
                         if site!="" and date!="":
                             print("book pass")

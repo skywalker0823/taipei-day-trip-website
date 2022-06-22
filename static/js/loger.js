@@ -151,7 +151,7 @@ async function login(){
   if(acc.match(mail_format)){
     console.log("shall pass")
   }else{err_l.innerHTML="";err_l.innerHTML="郵件帳號不符格式";return null}
-  const result = await this.linkin(acc,pss,'none','patch');
+  const result = await this.linkin(acc,pss,'none','PATCH');
   if(result.ok){
     //登入成功，應需求做畫面變化
     // tager.innerHTML="你好!"+
