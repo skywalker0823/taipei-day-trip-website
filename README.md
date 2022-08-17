@@ -4,7 +4,8 @@ Taipei-day-trip is a travel booking website, including 50+ sites in the area of 
 Each site has it's own photos and imformations, and can make reservation & payment.
 
 ## Website URL
-https://taipeidaytrip.fun/
+https://taipeidaytrip.fun/ 
+網站目前已關閉。temporarily closed
 ### Test credit Card
 | - | - |
 | -------- | -------- |

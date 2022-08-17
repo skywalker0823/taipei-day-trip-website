@@ -23,7 +23,7 @@ POOL = PooledDB(
 
     host=os.getenv("DB_host"),
     port=3306,
-    user='root',
+    user='pikxl',
     password=os.getenv("DB_pass"),
     database='website',
     charset='utf8',
